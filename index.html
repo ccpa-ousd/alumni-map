@@ -7,6 +7,9 @@
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+  <script src='https://npmcdn.com/csv2geojson@latest/csv2geojson.js'></script>
+  <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
   <link rel="stylesheet" href="style.css">
   <title>Coliseum College Prep Academy / Alumni</title>
 </head>
@@ -19,10 +22,53 @@
     const map = new mapboxgl.Map({
       container: 'map',
       // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-      style: 'mapbox://styles/mapbox/dark-v11',
-      center: [-103.5917, 40.6699],
-      zoom: 3
+      style: 'mapbox://styles/domlet/cli3xwl4000vf01r5hp28gm2q',
+      center: [-122.19564, 37.76047],
+      zoom: 9
     });
+
+    $(document).ready(function () {
+      $.ajax({
+        type: "GET",
+        url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=411964576&single=true&output=csv',
+        dataType: "text",
+        success: function (csvData) {
+          makeGeoJSON(csvData);
+          console.log("hi")
+        }
+      });
+    });
+
+    function makeGeoJSON(csvData) {
+      csv2geojson.csv2geojson(csvData, {
+        latfield: 'latitude',
+        lonfield: 'longitude',
+        delimiter: ','
+      }, function (err, data) {
+        if (err || data.features.length === 0) {
+          console.log('⚠️ csv error!');
+          console.log(data);
+        } else {
+          map.on('load', function () {
+
+            map.addLayer({
+              'id': 'airports',
+              'type': 'symbol',
+              'source': {
+                'type': 'geojson',
+                'data': data
+              },
+              'layout': {
+                "icon-image": "marker-15"
+              },
+              'paint': {}
+            });
+          });
+        }
+      });
+    }
+
+
     map.on('load', () => {
       // Add a new source from our GeoJSON data and
       // set the 'cluster' option to true. GL-JS will
@@ -36,6 +82,8 @@
         clusterMaxZoom: 14, // Max zoom to cluster points on
         clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
       });
+
+
 
       map.addLayer({
         id: 'clusters',

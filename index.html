@@ -27,29 +27,33 @@
       zoom: 9
     });
 
-    $(document).ready(function () {
-      $.ajax({
-        type: "GET",
-        url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=411964576&single=true&output=csv',
-        dataType: "text",
-        success: function (csvData) {
-          makeGeoJSON(csvData);
-        }
-      });
-    });
 
-    function makeGeoJSON(csvData) {
-      csv2geojson.csv2geojson(csvData, {
-        latfield: 'latitude',
-        lonfield: 'longitude',
-        delimiter: ','
-      }, function (err, data) {
-        if (err || data.features.length === 0) {
-          console.log('⚠️ csv error!');
-          console.log(data);
-        } else {
-          console.log("happen?")
-          map.on('load', function () {
+
+
+    map.on('load', () => {
+      $(document).ready(function () {
+        $.ajax({
+          type: "GET",
+          url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=411964576&single=true&output=csv',
+          dataType: "text",
+          success: function (csvData) {
+            makeGeoJSON(csvData);
+          }
+        });
+      });
+
+      function makeGeoJSON(csvData) {
+        csv2geojson.csv2geojson(csvData, {
+          latfield: 'latitude',
+          lonfield: 'longitude',
+          delimiter: ','
+        }, function (err, data) {
+          if (err || data.features.length === 0) {
+            console.log('⚠️ csv error!');
+            console.log(data);
+          } else {
+            console.log("it happened")
+            console.log(data)
             map.addLayer({
               'id': 'schools',
               'type': 'circle',
@@ -57,18 +61,15 @@
                 'type': 'geojson',
                 'data': data
               },
-              // 'layout': {
-              //   "icon-image": "marker-15"
-              // },
-              // 'paint': {}
+              paint: {
+                'circle-radius': 5,
+                'circle-color': 'red'
+              }
             });
-          });
-        }
-      });
-    }
+          }
+        });
+      }
 
-
-    map.on('load', () => {
       // Add a new source from our GeoJSON data and
       // set the 'cluster' option to true. GL-JS will
       // add the point_count property to your source data.

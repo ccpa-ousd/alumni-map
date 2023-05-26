@@ -34,7 +34,6 @@
         dataType: "text",
         success: function (csvData) {
           makeGeoJSON(csvData);
-          console.log("hi")
         }
       });
     });
@@ -49,19 +48,19 @@
           console.log('⚠️ csv error!');
           console.log(data);
         } else {
+          console.log("happen?")
           map.on('load', function () {
-
             map.addLayer({
-              'id': 'airports',
-              'type': 'symbol',
+              'id': 'schools',
+              'type': 'circle',
               'source': {
                 'type': 'geojson',
                 'data': data
               },
-              'layout': {
-                "icon-image": "marker-15"
-              },
-              'paint': {}
+              // 'layout': {
+              //   "icon-image": "marker-15"
+              // },
+              // 'paint': {}
             });
           });
         }
@@ -82,8 +81,6 @@
         clusterMaxZoom: 14, // Max zoom to cluster points on
         clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
       });
-
-
 
       map.addLayer({
         id: 'clusters',

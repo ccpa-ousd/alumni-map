@@ -76,18 +76,18 @@
                 'step',
                 ['get', 'point_count'],
                 '#51bbd6',
-                100,
+                2,
                 '#f1f075',
-                750,
+                10,
                 '#f28cb1'
               ],
               'circle-radius': [
                 'step',
                 ['get', 'point_count'],
                 20,
-                100,
+                10,
                 30,
-                750,
+                20,
                 40
               ]
             }
@@ -110,7 +110,7 @@
             filter: ['!', ['has', 'point_count']],
             paint: {
               'circle-color': '#11b4da',
-              'circle-radius': 4,
+              'circle-radius': 7,
               'circle-stroke-width': 1,
               'circle-stroke-color': '#fff'
             }
@@ -227,7 +227,7 @@
       // description HTML from its properties.
       map.on('click', 'unclustered-point', (e) => {
         const coordinates = e.features[0].geometry.coordinates.slice();
-        const mag = e.features[0].properties.mag;
+        const name = e.features[0].properties.name;
         const tsunami =
           e.features[0].properties.tsunami === 1 ? 'yes' : 'no';
 
@@ -241,7 +241,7 @@
         new mapboxgl.Popup()
           .setLngLat(coordinates)
           .setHTML(
-            `magnitude: ${mag}<br>Was there a tsunami?: ${tsunami}`
+            `Name: ${name}<br>Hi`
           )
           .addTo(map);
       });

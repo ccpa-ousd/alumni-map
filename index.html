@@ -62,18 +62,6 @@
             clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
           });
           map.addLayer({
-            'id': 'unclustered-schools',
-            'type': 'circle',
-            'source': {
-              'type': 'geojson',
-              'data': data
-            },
-            paint: {
-              'circle-radius': 5,
-              'circle-color': 'red'
-            }
-          });
-          map.addLayer({
             id: 'clusters',
             type: 'circle',
             source: 'schools',
@@ -113,6 +101,18 @@
               'text-field': ['get', 'point_count_abbreviated'],
               'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
               'text-size': 12
+            }
+          });
+          map.addLayer({
+            id: 'unclustered-point',
+            type: 'circle',
+            source: 'schools',
+            filter: ['!', ['has', 'point_count']],
+            paint: {
+              'circle-color': '#11b4da',
+              'circle-radius': 4,
+              'circle-stroke-width': 1,
+              'circle-stroke-color': '#fff'
             }
           });
 
@@ -199,18 +199,7 @@
 
 
 
-      map.addLayer({
-        id: 'unclustered-point',
-        type: 'circle',
-        source: 'earthquakes',
-        filter: ['!', ['has', 'point_count']],
-        paint: {
-          'circle-color': '#11b4da',
-          'circle-radius': 4,
-          'circle-stroke-width': 1,
-          'circle-stroke-color': '#fff'
-        }
-      });
+
 
       // inspect a cluster on click
       map.on('click', 'clusters', (e) => {

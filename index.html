@@ -21,14 +21,11 @@
     mapboxgl.accessToken = 'pk.eyJ1IjoiZG9tbGV0IiwiYSI6ImNsaTN5MXhseTA0bWMzZHBoNTlnaG1hYmUifQ.9IpTpyptAxhC6ZoUqKCd9w';
     const map = new mapboxgl.Map({
       container: 'map',
-      // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
       style: 'mapbox://styles/domlet/cli3xwl4000vf01r5hp28gm2q',
       center: [-122.19564, 37.76047],
-      zoom: 9
+      zoom: 9,
+      projection: 'mercator'
     });
-
-
-
 
     map.on('load', () => {
       $(document).ready(function () {

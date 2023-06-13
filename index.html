@@ -15,15 +15,37 @@
 </head>
 
 <body>
-  <div id="map"></div>
 
+  <div id="section1-wrapper" class='wrapper'>
+    <div id="map"></div>
+    <div class="container">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="navbar">
+          <a href="#home">About</a>
+          <a href="#news">News</a>
+          <div class="dropdown">
+            <button class="dropbtn" onclick="myFunction()">Dropdown
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content" id="myDropdown">
+              <a href="#">Link 1</a>
+              <a href="#">Link 2</a>
+              <a href="#">Link 3</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div id="section2-wrapper" class="wrapper">Another row of content</div>
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiZG9tbGV0IiwiYSI6ImNsaTN5MXhseTA0bWMzZHBoNTlnaG1hYmUifQ.9IpTpyptAxhC6ZoUqKCd9w';
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/domlet/cli3xwl4000vf01r5hp28gm2q',
       center: [-122.19564, 37.76047],
-      zoom: 9,
+      zoom: 5,
       projection: 'mercator'
     });
 
@@ -72,6 +94,8 @@
               //   * Blue, 20px circles when point count is less than 100
               //   * Yellow, 30px circles when point count is between 100 and 750
               //   * Pink, 40px circles when point count is greater than or equal to 750
+              'circle-stroke-width': 1,
+              'circle-stroke-color': '#fff',
               'circle-color': [
                 'step',
                 ['get', 'point_count'],
@@ -120,87 +144,6 @@
 
       }
 
-      // Add a new source from our GeoJSON data and
-      // set the 'cluster' option to true. GL-JS will
-      // add the point_count property to your source data.
-      map.addSource('earthquakes', {
-        type: 'geojson',
-        // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes
-        // from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
-        data: 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson',
-        cluster: true,
-        clusterMaxZoom: 14, // Max zoom to cluster points on
-        clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
-      });
-      // map.addLayer({
-      //   id: 'clusters',
-      //   type: 'circle',
-      //   source: 'earthquakes',
-      //   filter: ['has', 'point_count'],
-      //   paint: {
-      //     // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
-      //     // with three steps to implement three types of circles:
-      //     //   * Blue, 20px circles when point count is less than 100
-      //     //   * Yellow, 30px circles when point count is between 100 and 750
-      //     //   * Pink, 40px circles when point count is greater than or equal to 750
-      //     'circle-color': [
-      //       'step',
-      //       ['get', 'point_count'],
-      //       '#51bbd6',
-      //       100,
-      //       '#f1f075',
-      //       750,
-      //       '#f28cb1'
-      //     ],
-      //     'circle-radius': [
-      //       'step',
-      //       ['get', 'point_count'],
-      //       20,
-      //       100,
-      //       30,
-      //       750,
-      //       40
-      //     ]
-      //   }
-      // });
-
-
-      // map.addLayer({
-      //   id: 'clusters',
-      //   type: 'circle',
-      //   source: 'earthquakes',
-      //   filter: ['has', 'point_count'],
-      //   paint: {
-      //     // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
-      //     // with three steps to implement three types of circles:
-      //     //   * Blue, 20px circles when point count is less than 100
-      //     //   * Yellow, 30px circles when point count is between 100 and 750
-      //     //   * Pink, 40px circles when point count is greater than or equal to 750
-      //     'circle-color': [
-      //       'step',
-      //       ['get', 'point_count'],
-      //       '#51bbd6',
-      //       100,
-      //       '#f1f075',
-      //       750,
-      //       '#f28cb1'
-      //     ],
-      //     'circle-radius': [
-      //       'step',
-      //       ['get', 'point_count'],
-      //       20,
-      //       100,
-      //       30,
-      //       750,
-      //       40
-      //     ]
-      //   }
-      // });
-
-
-
-
-
       // inspect a cluster on click
       map.on('click', 'clusters', (e) => {
         const features = map.queryRenderedFeatures(e.point, {
@@ -241,7 +184,7 @@
         new mapboxgl.Popup()
           .setLngLat(coordinates)
           .setHTML(
-            `Name: ${name}<br>Hi`
+            `<strong>${name}</strong>`
           )
           .addTo(map);
       });
@@ -253,6 +196,8 @@
         map.getCanvas().style.cursor = '';
       });
     });
+
+
   </script>
 
 </body>

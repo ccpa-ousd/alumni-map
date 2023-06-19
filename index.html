@@ -17,14 +17,28 @@
 <body>
 
   <div id="section1-wrapper" class='wrapper'>
-    <div id="map"></div>
     <div class="container">
       <div class="col-xs-12 col-sm-12 col-md-12">
+        <div id="menu">
+          <input id="satellite-streets-v12" type="radio" name="rtoggle" value="satellite" checked="checked">
+          <!-- See a list of Mapbox-hosted public styles at -->
+          <!-- https://docs.mapbox.com/api/maps/styles/#mapbox-styles -->
+          <label for="satellite-streets-v12">satellite streets</label>
+          <input id="light-v11" type="radio" name="rtoggle" value="light">
+          <label for="light-v11">light</label>
+          <input id="dark-v11" type="radio" name="rtoggle" value="dark">
+          <label for="dark-v11">dark</label>
+          <input id="streets-v12" type="radio" name="rtoggle" value="streets">
+          <label for="streets-v12">streets</label>
+          <input id="outdoors-v12" type="radio" name="rtoggle" value="outdoors">
+          <label for="outdoors-v12">outdoors</label>
+        </div>
+
         <div class="navbar">
           <a href="#home">About</a>
-          <a href="#news">News</a>
+          <a href="#news">Schools</a>
           <div class="dropdown">
-            <button class="dropbtn" onclick="myFunction()">Dropdown
+            <button class="dropbtn" onclick="myFunction()">Alumni
               <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-content" id="myDropdown">
@@ -37,8 +51,10 @@
       </div>
     </div>
   </div>
+  <div id="section2-wrapper" class="wrapper">
+    <div id="map"></div>
   </div>
-  <div id="section2-wrapper" class="wrapper">Another row of content</div>
+
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiZG9tbGV0IiwiYSI6ImNsaTN5MXhseTA0bWMzZHBoNTlnaG1hYmUifQ.9IpTpyptAxhC6ZoUqKCd9w';
     const map = new mapboxgl.Map({
@@ -48,155 +64,168 @@
       zoom: 5,
       projection: 'mercator'
     });
+    // Change map style:
+    const layerList = document.getElementById('menu');
+    const inputs = layerList.getElementsByTagName('input');
+    for (const input of inputs) {
+      input.onclick = (layer) => {
+        const layerId = layer.target.id;
+        map.setStyle('mapbox://styles/mapbox/' + layerId);
+      };
+      mapStuff()
+    }
 
-    // First wait for the map to load!
-    map.on('load', () => {
-      $(document).ready(function () {
-        $.ajax({
-          type: "GET",
-          url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=411964576&single=true&output=csv',
-          dataType: "text",
-          success: function (csvData) {
-            makeGeoJSON(csvData);
-          }
-        });
-      });
-
-
-      function makeGeoJSON(csvData) {
-        csv2geojson.csv2geojson(csvData, {
-          latfield: 'latitude',
-          lonfield: 'longitude',
-          delimiter: ','
-        }, function (err, data) {
-          if (err || data.features.length === 0) {
-            console.log('⚠️ csv error!');
-            console.log(data);
-          } else {
-            console.log("it happened")
-            console.log(data)
-          }
-          map.addSource('schools', {
-            type: 'geojson',
-            data: data,
-            cluster: true,
-            clusterMaxZoom: 14, // Max zoom to cluster points on
-            clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
-          });
-          map.addLayer({
-            id: 'clusters',
-            type: 'circle',
-            source: 'schools',
-            filter: ['has', 'point_count'],
-            paint: {
-              // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
-              // with three steps to implement three types of circles:
-              //   * Blue, 20px circles when point count is less than 100
-              //   * Yellow, 30px circles when point count is between 100 and 750
-              //   * Pink, 40px circles when point count is greater than or equal to 750
-              'circle-stroke-width': 1,
-              'circle-stroke-color': '#fff',
-              'circle-color': [
-                'step',
-                ['get', 'point_count'],
-                '#51bbd6',
-                2,
-                '#f1f075',
-                10,
-                '#f28cb1'
-              ],
-              'circle-radius': [
-                'step',
-                ['get', 'point_count'],
-                20,
-                10,
-                30,
-                20,
-                40
-              ]
+    function mapStuff() {
+      // First wait for the map to load!
+      map.on('load', () => {
+        $(document).ready(function () {
+          $.ajax({
+            type: "GET",
+            url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=411964576&single=true&output=csv',
+            dataType: "text",
+            success: function (csvData) {
+              makeGeoJSON(csvData);
             }
           });
-          map.addLayer({
-            id: 'cluster-count',
-            type: 'symbol',
-            source: 'schools',
-            filter: ['has', 'point_count'],
-            layout: {
-              'text-field': ['get', 'point_count_abbreviated'],
-              'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-              'text-size': 12
-            }
-          });
-          map.addLayer({
-            id: 'unclustered-point',
-            type: 'circle',
-            source: 'schools',
-            filter: ['!', ['has', 'point_count']],
-            paint: {
-              'circle-color': '#11b4da',
-              'circle-radius': 7,
-              'circle-stroke-width': 1,
-              'circle-stroke-color': '#fff'
-            }
-          });
-
         });
 
-      }
 
-      // inspect a cluster on click
-      map.on('click', 'clusters', (e) => {
-        const features = map.queryRenderedFeatures(e.point, {
-          layers: ['clusters']
-        });
-        const clusterId = features[0].properties.cluster_id;
-        map.getSource('schools').getClusterExpansionZoom(
-          clusterId,
-          (err, zoom) => {
-            if (err) return;
-
-            map.easeTo({
-              center: features[0].geometry.coordinates,
-              zoom: zoom
+        function makeGeoJSON(csvData) {
+          csv2geojson.csv2geojson(csvData, {
+            latfield: 'latitude',
+            lonfield: 'longitude',
+            delimiter: ','
+          }, function (err, data) {
+            if (err || data.features.length === 0) {
+              console.log('⚠️ csv error!');
+              console.log(data);
+            } else {
+              console.log("it happened")
+              console.log(data)
+            }
+            map.addSource('schools', {
+              type: 'geojson',
+              data: data,
+              cluster: true,
+              clusterMaxZoom: 14, // Max zoom to cluster points on
+              clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
             });
-          }
-        );
-      });
+            map.addLayer({
+              id: 'clusters',
+              type: 'circle',
+              source: 'schools',
+              filter: ['has', 'point_count'],
+              paint: {
+                // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
+                // with three steps to implement three types of circles:
+                //   * Blue, 20px circles when point count is less than 100
+                //   * Yellow, 30px circles when point count is between 100 and 750
+                //   * Pink, 40px circles when point count is greater than or equal to 750
+                'circle-stroke-width': 1,
+                'circle-stroke-color': '#fff',
+                'circle-color': [
+                  'step',
+                  ['get', 'point_count'],
+                  '#51bbd6',
+                  2,
+                  '#f1f075',
+                  10,
+                  '#f28cb1'
+                ],
+                'circle-radius': [
+                  'step',
+                  ['get', 'point_count'],
+                  20,
+                  10,
+                  30,
+                  20,
+                  40
+                ]
+              }
+            });
+            map.addLayer({
+              id: 'cluster-count',
+              type: 'symbol',
+              source: 'schools',
+              filter: ['has', 'point_count'],
+              layout: {
+                'text-field': ['get', 'point_count_abbreviated'],
+                'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+                'text-size': 12
+              }
+            });
+            map.addLayer({
+              id: 'unclustered-point',
+              type: 'circle',
+              source: 'schools',
+              filter: ['!', ['has', 'point_count']],
+              paint: {
+                'circle-color': '#11b4da',
+                'circle-radius': 7,
+                'circle-stroke-width': 1,
+                'circle-stroke-color': '#fff'
+              }
+            });
 
+          });
 
-      // When a click event occurs on a feature in
-      // the unclustered-point layer, open a popup at
-      // the location of the feature, with
-      // description HTML from its properties.
-      map.on('click', 'unclustered-point', (e) => {
-        const coordinates = e.features[0].geometry.coordinates.slice();
-        const name = e.features[0].properties.name;
-        const tsunami =
-          e.features[0].properties.tsunami === 1 ? 'yes' : 'no';
-
-        // Ensure that if the map is zoomed out such that
-        // multiple copies of the feature are visible, the
-        // popup appears over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
 
-        new mapboxgl.Popup()
-          .setLngLat(coordinates)
-          .setHTML(
-            `<strong>${name}</strong>`
-          )
-          .addTo(map);
+        // inspect a cluster on click
+        map.on('click', 'clusters', (e) => {
+          const features = map.queryRenderedFeatures(e.point, {
+            layers: ['clusters']
+          });
+          const clusterId = features[0].properties.cluster_id;
+          map.getSource('schools').getClusterExpansionZoom(
+            clusterId,
+            (err, zoom) => {
+              if (err) return;
+
+              map.easeTo({
+                center: features[0].geometry.coordinates,
+                zoom: zoom
+              });
+            }
+          );
+        });
+
+
+        // When a click event occurs on a feature in
+        // the unclustered-point layer, open a popup at
+        // the location of the feature, with
+        // description HTML from its properties.
+        map.on('click', 'unclustered-point', (e) => {
+          const coordinates = e.features[0].geometry.coordinates.slice();
+          const name = e.features[0].properties.name;
+          const tsunami =
+            e.features[0].properties.tsunami === 1 ? 'yes' : 'no';
+
+          // Ensure that if the map is zoomed out such that
+          // multiple copies of the feature are visible, the
+          // popup appears over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup()
+            .setLngLat(coordinates)
+            .setHTML(
+              `<strong>${name}</strong>`
+            )
+            .addTo(map);
+        });
+
+        map.on('mouseenter', 'clusters', () => {
+          map.getCanvas().style.cursor = 'pointer';
+        });
+        map.on('mouseleave', 'clusters', () => {
+          map.getCanvas().style.cursor = '';
+        });
       });
 
-      map.on('mouseenter', 'clusters', () => {
-        map.getCanvas().style.cursor = 'pointer';
-      });
-      map.on('mouseleave', 'clusters', () => {
-        map.getCanvas().style.cursor = '';
-      });
-    });
-
+    }
+    mapStuff()
 
   </script>
 

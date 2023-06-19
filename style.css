@@ -1,3 +1,5 @@
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%;}
 .container {
   background-color:black;
   background: rgba(0, 0, 0, 0.75);
@@ -5,8 +7,13 @@
   position:relative;
   z-index: 1
 }
-body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+/* Styles */
+#stylemenu {
+position: absolute;
+background: #efefef;
+padding: 10px;
+font-family: 'Open Sans', sans-serif;
+}
 /* Nav Bar */
 .navbar {
   overflow: hidden;

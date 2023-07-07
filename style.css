@@ -61,7 +61,6 @@ body { margin: 0; padding: 0; }
 
 .dropdown-content div {
   float: none;
-  /* color: black; */
   color: #fff;
   padding: 0.2em;
   text-decoration: none;

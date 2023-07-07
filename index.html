@@ -20,18 +20,16 @@
     <div class="container">
       <div class="col-xs-12 col-sm-12 col-md-12">
         <div id="menu">
-          <input id="satellite-streets-v12" type="radio" name="rtoggle" value="satellite" checked="checked">
-          <!-- See a list of Mapbox-hosted public styles at -->
-          <!-- https://docs.mapbox.com/api/maps/styles/#mapbox-styles -->
-          <label for="satellite-streets-v12">satellite streets</label>
-          <input id="light-v11" type="radio" name="rtoggle" value="light">
-          <label for="light-v11">light</label>
-          <input id="dark-v11" type="radio" name="rtoggle" value="dark">
-          <label for="dark-v11">dark</label>
-          <input id="streets-v12" type="radio" name="rtoggle" value="streets">
-          <label for="streets-v12">streets</label>
-          <input id="outdoors-v12" type="radio" name="rtoggle" value="outdoors">
-          <label for="outdoors-v12">outdoors</label>
+          <input type="checkbox" id="schools1" name="schools1" value="CSU">
+          <label for="schools1"> California State University (CSU schools)</label><br>
+          <input type="checkbox" id="schools2" name="schools2" value="UC">
+          <label for="schools2"> University of California (UC schools)</label><br>
+          <input type="checkbox" id="schools3" name="schools3" value="CCC">
+          <label for="schools3"> California Community Colleges (CCC)</label><br>
+          <input type="checkbox" id="schools4" name="schools4" value="PublicUS">
+          <label for="schools4"> Public Universities (U.S.)</label><br>
+          <input type="checkbox" id="schools5" name="schools5" value="PrivateUS">
+          <label for="schools5"> Private Universities (U.S.)</label><br>
         </div>
 
         <div class="navbar">
@@ -64,16 +62,6 @@
       zoom: 5,
       projection: 'mercator'
     });
-    // Change map style:
-    const layerList = document.getElementById('menu');
-    const inputs = layerList.getElementsByTagName('input');
-    for (const input of inputs) {
-      input.onclick = (layer) => {
-        const layerId = layer.target.id;
-        map.setStyle('mapbox://styles/mapbox/' + layerId);
-      };
-      mapStuff()
-    }
 
     function mapStuff() {
       // First wait for the map to load!

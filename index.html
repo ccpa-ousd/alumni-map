@@ -65,21 +65,20 @@
     <div id="map"></div>
   </div>
 
-
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiZG9tbGV0IiwiYSI6ImNsaTN5MXhseTA0bWMzZHBoNTlnaG1hYmUifQ.9IpTpyptAxhC6ZoUqKCd9w';
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/domlet/cli3xwl4000vf01r5hp28gm2q',
       center: [-122.19564, 37.76047],
-      zoom: 9,
+      zoom: 7,
       projection: 'mercator'
     });
 
     datasets = [
-      { "name": "schools", "url": 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=411964576&single=true&output=csv' },
-      { "name": "co_1900", "url": 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=435305116&single=true&output=csv' },
-      { "name": "co_2022", "url": 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=2010580620&single=true&output=csv' }
+      { 'name': 'co_2022', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=2010580620&single=true&output=csv', 'color': '#F28CB1' },
+      { 'name': 'co_1900', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=435305116&single=true&output=csv', 'color': '#11b4da' },
+      { 'name': 'schools', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=411964576&single=true&output=csv', 'color': '#F1F075' }, // yellow
     ]
 
     // First wait for the map to load!
@@ -93,7 +92,6 @@
           success: function (csvData) {
             // makeGeoJSON(csvData);
             csv2geojson.csv2geojson(csvData, {
-
               latfield: 'latitude',
               lonfield: 'longitude',
               delimiter: ','
@@ -113,12 +111,13 @@
                 clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
               });
               map.addLayer({
-                id: datasets[i].name,
                 type: 'circle',
+                id: datasets[i].name,
                 source: datasets[i].name,
                 filter: ['!', ['has', 'point_count']],
+                minzoom: 0,
                 paint: {
-                  'circle-color': '#11b4da',
+                  'circle-color': datasets[i].color,
                   'circle-radius': 7,
                   'circle-stroke-width': 1,
                   'circle-stroke-color': '#fff'
@@ -128,30 +127,6 @@
             console.log(datasets[i].name)
           }
         });
-
-        // convert CSV to GeoJSON
-        // function makeGeoJSON(csvData) {
-        // csv2geojson.csv2geojson(csvData, {
-        //   name: name,
-        //   latfield: 'latitude',
-        //   lonfield: 'longitude',
-        //   delimiter: ','
-        // }, function (err, data) {
-        //   if (err || data.features.length === 0) {
-        //     console.log('⚠️ csv error!');
-        //     console.log(data);
-        //   } else {
-        //     console.log("it happened")
-        //     console.log(data)
-        //   }
-
-        // });
-
-        // }
-
-
-
-
 
         // inspect a cluster on click
         map.on('click', 'clusters', (e) => {
@@ -177,12 +152,10 @@
         // the unclustered-point layer, open a popup at
         // the location of the feature, with
         // description HTML from its properties.
-        map.on('click', 'unclustered-point', (e) => {
+        map.on('click', 'schools', (e) => {
           const coordinates = e.features[0].geometry.coordinates.slice();
           const name = e.features[0].properties.name;
-          const tsunami =
-            e.features[0].properties.tsunami === 1 ? 'yes' : 'no';
-
+          const location = e.features[0].properties.location;
           // Ensure that if the map is zoomed out such that
           // multiple copies of the feature are visible, the
           // popup appears over the copy being pointed to.
@@ -193,7 +166,8 @@
           new mapboxgl.Popup()
             .setLngLat(coordinates)
             .setHTML(
-              `Name: ${name}<br>Hi`
+              `<strong>Name:</strong> ${name}<br>
+              <strong>Location:</strong> ${location}`
             )
             .addTo(map);
         });
@@ -210,6 +184,7 @@
       /* When the user clicks on the button, 
       toggle between hiding and showing the dropdown content */
       function myFunction() {
+        console.log('hi')
         document.getElementById("myDropdown").classList.toggle("show");
       }
 

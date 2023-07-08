@@ -63,6 +63,7 @@
 
   <div id="section2-wrapper" class="wrapper">
     <div id="map"></div>
+    <div id="about"></div>
   </div>
 
   <script>
@@ -70,15 +71,15 @@
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/domlet/cli3xwl4000vf01r5hp28gm2q',
-      center: [-122.19564, 37.76047],
-      zoom: 7,
+      center: [-121.19564, 37.76047],
+      zoom: 5.5,
       projection: 'mercator'
     });
 
     datasets = [
-      { 'name': 'co_2022', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=2010580620&single=true&output=csv', 'color': '#F28CB1' },
+      { 'name': 'schools', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=411964576&single=true&output=csv', 'color': '#F1F075' }, // yellow
       { 'name': 'co_1900', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=435305116&single=true&output=csv', 'color': '#11b4da' },
-      // { 'name': 'schools', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=411964576&single=true&output=csv', 'color': '#F1F075' }, // yellow
+      { 'name': 'co_2022', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=2010580620&single=true&output=csv', 'color': '#F28CB1' },
     ]
 
     // First wait for the map to load!
@@ -125,11 +126,11 @@
         });
 
         // inspect a feature on click
-        map.on('click', 'co_1900', (e) => {
+        map.on('click', ['co_1900', 'co_2022', 'schools'], (e) => {
           const features = map.queryRenderedFeatures(e.point, {
             layers: ['co_1900', 'co_2022']
           });
-          console.log(features)
+          // console.log(features)
           const clusterId = features[0].properties.cluster_id;
           // map.getSource('co_1900').getClusterExpansionZoom(
           //   clusterId,
@@ -149,13 +150,13 @@
         // the ... layer, open a popup at
         // the location of the feature, with
         // description HTML from its properties.
-        map.on('click', 'co_1900', (e) => {
+        map.on('click', ['co_1900', 'co_2022', 'schools'], (e) => {
           const coordinates = e.features[0].geometry.coordinates.slice();
           const name = e.features[0].properties.name;
           const location = e.features[0].properties.location;
-          console.log(e.features[0].properties)
-          console.log(name)
-          console.log(location)
+          // console.log(e.features[0].properties)
+          // console.log(name)
+          // console.log(location)
           // solve multiple copies if zoom is low
           while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;

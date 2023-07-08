@@ -78,7 +78,7 @@
     datasets = [
       { 'name': 'co_2022', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=2010580620&single=true&output=csv', 'color': '#F28CB1' },
       { 'name': 'co_1900', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=435305116&single=true&output=csv', 'color': '#11b4da' },
-      { 'name': 'schools', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=411964576&single=true&output=csv', 'color': '#F1F075' }, // yellow
+      // { 'name': 'schools', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=411964576&single=true&output=csv', 'color': '#F1F075' }, // yellow
     ]
 
     // First wait for the map to load!
@@ -106,15 +106,12 @@
               map.addSource(datasets[i].name, {
                 type: 'geojson',
                 data: data,
-                cluster: true,
-                clusterMaxZoom: 14, // Max zoom to cluster points on
-                clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
               });
               map.addLayer({
                 type: 'circle',
                 id: datasets[i].name,
                 source: datasets[i].name,
-                filter: ['!', ['has', 'point_count']],
+                // filter: ['!', ['has', 'point_count']],
                 minzoom: 0,
                 paint: {
                   'circle-color': datasets[i].color,
@@ -124,41 +121,42 @@
                 }
               });
             });
-            console.log(datasets[i].name)
           }
         });
 
-        // inspect a cluster on click
-        map.on('click', 'clusters', (e) => {
+        // inspect a feature on click
+        map.on('click', 'co_1900', (e) => {
           const features = map.queryRenderedFeatures(e.point, {
-            layers: ['clusters']
+            layers: ['co_1900', 'co_2022']
           });
+          console.log(features)
           const clusterId = features[0].properties.cluster_id;
-          map.getSource('schools').getClusterExpansionZoom(
-            clusterId,
-            (err, zoom) => {
-              if (err) return;
-
-              map.easeTo({
-                center: features[0].geometry.coordinates,
-                zoom: zoom
-              });
-            }
-          );
+          // map.getSource('co_1900').getClusterExpansionZoom(
+          //   clusterId,
+          //   (err, zoom) => {
+          //     if (err) return;
+          //     // Center on the clicked feature:
+          //     map.easeTo({
+          //       center: features[0].geometry.coordinates,
+          //       zoom: zoom
+          //     });
+          //   }
+          // );
         });
 
 
         // When a click event occurs on a feature in
-        // the unclustered-point layer, open a popup at
+        // the ... layer, open a popup at
         // the location of the feature, with
         // description HTML from its properties.
-        map.on('click', 'schools', (e) => {
+        map.on('click', 'co_1900', (e) => {
           const coordinates = e.features[0].geometry.coordinates.slice();
           const name = e.features[0].properties.name;
           const location = e.features[0].properties.location;
-          // Ensure that if the map is zoomed out such that
-          // multiple copies of the feature are visible, the
-          // popup appears over the copy being pointed to.
+          console.log(e.features[0].properties)
+          console.log(name)
+          console.log(location)
+          // solve multiple copies if zoom is low
           while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }

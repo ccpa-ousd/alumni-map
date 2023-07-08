@@ -27,15 +27,15 @@
             </button>
             <div class="dropdown-content" id="myDropdown">
               <div>
-                <input type="checkbox" id="schools1" name="schools1" value="CSU">
+                <input type="checkbox" id="schools1" name="schools1" value="CSU" checked>
                 <label for="schools1"> California State University (CSU schools)</label>
               </div>
               <div>
-                <input type="checkbox" id="schools2" name="schools2" value="UC">
+                <input type="checkbox" id="schools2" name="schools2" value="UC" checked>
                 <label for="schools2"> University of California (UC schools)</label>
               </div>
               <div>
-                <input type="checkbox" id="schools3" name="schools3" value="CCC">
+                <input type="checkbox" id="schools3" name="schools3" value="CCC" checked>
                 <label for="schools3"> California Community Colleges (CCC)</label>
               </div>
               <div>
@@ -47,7 +47,7 @@
                 <label for="schools5"> Private Universities (U.S.)</label>
               </div>
               <div>
-                <input type="checkbox" id="class2022" name="class2022" value="class2022">
+                <input type="checkbox" id="class2022" name="class2022" value="class2022" checked>
                 <label for="class2022"> Class of 2022</label>
               </div>
               <div>
@@ -120,7 +120,7 @@
                   'circle-color': datasets[i].color,
                   'circle-radius': 7,
                   'circle-stroke-width': 1,
-                  'circle-stroke-color': '#fff'
+                  'circle-stroke-color': '#000'
                 }
               });
             });
@@ -180,24 +180,24 @@
         });
       };
 
-      // menu
-      /* When the user clicks on the button, 
-      toggle between hiding and showing the dropdown content */
-      function myFunction() {
-        console.log('hi')
-        document.getElementById("myDropdown").classList.toggle("show");
-      }
+    })
+    // menu
+    /* When the user clicks on the button, 
+    toggle between hiding and showing the dropdown content */
+    function myFunction() {
+      console.log('hi')
+      document.getElementById("myDropdown").classList.toggle("show");
+    }
 
-      // Close the dropdown if the user clicks outside of it
-      window.onclick = function (e) {
-        if (!e.target.matches('.dropbtn')) {
-          var myDropdown = document.getElementById("myDropdown");
-          if (myDropdown.classList.contains('show')) {
-            myDropdown.classList.remove('show');
-          }
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function (e) {
+      if (!e.target.matches('.dropbtn')) {
+        var myDropdown = document.getElementById("myDropdown");
+        if (myDropdown.classList.contains('show')) {
+          myDropdown.classList.remove('show');
         }
       }
-    })
+    }
   </script>
 </body>
 

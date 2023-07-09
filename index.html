@@ -78,19 +78,17 @@
 
     datasets = [
       { 'name': 'schools', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=411964576&single=true&output=csv', 'color': '#F1F075' }, // yellow
-      { 'name': 'alumni', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=435305116&single=true&output=csv', 'color': '#11b4da' }
+      { 'name': 'alumni', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=435305116&single=true&output=csv', 'color': '#11b4da' },
     ]
 
     // First wait for the map to load!
     map.on('load', () => {
       for (let i = 0; i < datasets.length; i++) {
-        // console.log(datasets[i].url)
         $.ajax({
           type: "GET",
           url: datasets[i].url,
           dataType: "text",
           success: function (csvData) {
-            // makeGeoJSON(csvData);
             csv2geojson.csv2geojson(csvData, {
               latfield: 'latitude',
               lonfield: 'longitude',
@@ -107,6 +105,26 @@
                 type: 'geojson',
                 data: data,
               });
+              // ToDo: Prevent hoisting:
+              const alumni = map.getStyle().sources['alumni'].data.features
+              const schools = map.getStyle().sources['schools'].data.features
+              // for (let i = 0; i < alumni.length; i++) {
+              //   console.log(alumni[i])
+              // }
+              // console.log(schools)
+              map.addLayer({
+                'id': 'CSU',
+                'type': 'symbol',
+                'source': 'schools',
+                'paint': {
+                  'fill-color': '#888888',
+                  'fill-opacity': 0.4
+                },
+                // 'filter': ['==', '$type', 'Polygon'],
+                'filter': ['==', '$type', 'Polygon'],
+                "text-field": ["get", "foo", ["at", 0, ["get", "someProp"]]],
+              });
+
               map.addLayer({
                 type: 'circle',
                 id: datasets[i].name,

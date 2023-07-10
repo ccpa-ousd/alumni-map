@@ -80,6 +80,18 @@
       { 'name': 'schools', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=411964576&single=true&output=csv', 'color': '#F1F075' }, // yellow
       { 'name': 'alumni', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=435305116&single=true&output=csv', 'color': '#11b4da' },
     ]
+    categories =
+    {
+      'csu': { 'color': 'purple' },
+      'uc': { 'color': 'yellow' },
+      'ccc': { 'color': 'cyan' },
+      'usa': { 'color': 'magenta' },
+      'mexico': { 'color': 'red' },
+      'ncaa_d1': { 'color': 'green' },
+      'us-non-california-public': { 'color': 'orange' },
+      'us-non-california-private': { 'color': 'silver' },
+    }
+
 
     // First wait for the map to load!
     map.on('load', () => {
@@ -111,55 +123,98 @@
               // for (let i = 0; i < alumni.length; i++) {
               //   console.log(alumni[i])
               // }
-              // console.log(schools)
+              // console.log()
               map.addLayer({
-                'id': 'CSU',
-                'type': 'symbol',
+                'id': 'csu',
+                'type': 'circle',
                 'source': 'schools',
                 'paint': {
-                  'fill-color': '#888888',
-                  'fill-opacity': 0.4
+                  'circle-color': categories['csu'].color,
+                  'circle-stroke-width': 2,
+                  'circle-stroke-color': '#000',
+                  'circle-radius': 7,
                 },
-                // 'filter': ['==', '$type', 'Polygon'],
-                'filter': ['==', '$type', 'Polygon'],
-                "text-field": ["get", "foo", ["at", 0, ["get", "someProp"]]],
+                'filter': ['all', ['==', 'system_acronym', 'CSU']],
+              });
+              map.addLayer({
+                'id': 'uc',
+                'type': 'circle',
+                'source': 'schools',
+                'paint': {
+                  'circle-color': categories['uc'].color,
+                  'circle-stroke-width': 2,
+                  'circle-stroke-color': '#000',
+                  'circle-radius': 7,
+                },
+                'filter': ['all', ['==', 'system_acronym', 'UC']],
+              });
+              map.addLayer({
+                'id': 'ccc',
+                'type': 'circle',
+                'source': 'schools',
+                'paint': {
+                  'circle-color': categories['ccc'].color,
+                  'circle-stroke-width': 2,
+                  'circle-stroke-color': '#000',
+                  'circle-radius': 7,
+                },
+                'filter': ['all', ['==', 'system_acronym', 'CCC']],
+              });
+              map.addLayer({
+                'id': 'mexico',
+                'type': 'circle',
+                'source': 'schools',
+                'paint': {
+                  'circle-color': categories['mexico'].color,
+                  'circle-stroke-width': 2,
+                  'circle-stroke-color': '#000',
+                  'circle-radius': 7,
+                },
+                'filter': ['all', ['==', 'country', 'Mexico']],
+              });
+              map.addLayer({
+                'id': 'us-non-california-public',
+                'type': 'circle',
+                'source': 'schools',
+                'paint': {
+                  'circle-color': categories['us-non-california-public'].color,
+                  'circle-stroke-width': 2,
+                  'circle-stroke-color': '#000',
+                  'circle-radius': 7,
+                },
+                'filter': ['all',
+                  ['==', 'country', 'USA'],
+                  ['!=', 'state', 'CA'],
+                  ['!=', 'pub_priv', 'Public'],
+                ],
+              });
+              map.addLayer({
+                'id': 'us-non-california-private',
+                'type': 'circle',
+                'source': 'schools',
+                'paint': {
+                  'circle-color': categories['us-non-california-private'].color,
+                  'circle-stroke-width': 2,
+                  'circle-stroke-color': '#000',
+                  'circle-radius': 7,
+                },
+                'filter': ['all',
+                  ['==', 'country', 'USA'],
+                  ['!=', 'state', 'CA'],
+                  ['!=', 'pub_priv', 'Private'],
+                ],
               });
 
-              map.addLayer({
-                type: 'circle',
-                id: datasets[i].name,
-                source: datasets[i].name,
-                // filter: ['!', ['has', 'point_count']],
-                minzoom: 0,
-                paint: {
-                  'circle-color': datasets[i].color,
-                  'circle-radius': 7,
-                  'circle-stroke-width': 1,
-                  'circle-stroke-color': '#000'
-                }
-              });
+
             });
           }
         });
 
         // inspect a feature on click
-        map.on('click', ['alumni', 'schools'], (e) => {
+        map.on('click', ['csu'], (e) => {
           const features = map.queryRenderedFeatures(e.point, {
-            layers: ['alumni']
+            layers: ['csu']
           });
-          // console.log(features)
-          const clusterId = features[0].properties.cluster_id;
-          // map.getSource('co_1900').getClusterExpansionZoom(
-          //   clusterId,
-          //   (err, zoom) => {
-          //     if (err) return;
-          //     // Center on the clicked feature:
-          //     map.easeTo({
-          //       center: features[0].geometry.coordinates,
-          //       zoom: zoom
-          //     });
-          //   }
-          // );
         });
 
 
@@ -167,7 +222,7 @@
         // the ... layer, open a popup at
         // the location of the feature, with
         // description HTML from its properties.
-        map.on('click', ['alumni', 'schools'], (e) => {
+        map.on('click', ['csu', 'schools'], (e) => {
           const coordinates = e.features[0].geometry.coordinates.slice();
           const name = e.features[0].properties.name;
           const location = e.features[0].properties.location;

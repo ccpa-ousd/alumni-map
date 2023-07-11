@@ -183,7 +183,7 @@
         if (error) throw error;
         map.addImage('csu', image);
       });
-      map.loadImage('icons/logo_sys_uc_24px_sq.png', (error, image) => {
+      map.loadImage('icons/logo_sys_uc2_24px_sq.png', (error, image) => {
         if (error) throw error;
         map.addImage('uc', image);
       });
@@ -222,12 +222,13 @@
                 'type': 'symbol',
                 'source': 'schools',
                 'layout': {
+                  // 'icon-allow-overlap': 'true',
                   'icon-image': 'uc',
                   'icon-size': 1,
                 },
                 'paint': {
                   'icon-halo-color': '#fff',
-                  'icon-halo-width': 10
+                  'icon-halo-width': 2
                 },
                 'filter': ['all', ['==', 'system_acronym', 'UC']],
               });
@@ -339,12 +340,12 @@
       map.addLayer(
         {
           'id': 'isoLayer',
-          'type': 'line',
+          'type': 'fill',
           'source': 'iso',
           'paint': {
-            'line-color': '#5a3fc0',
-            'line-opacity': 1,
-            'line-width': 2,
+            'fill-color': '#FB02C9',
+            'fill-opacity': .3,
+            // 'line-width': 2,
           }
         },
         'poi-label'
@@ -369,6 +370,7 @@
       const coordinates = e.features[0].geometry.coordinates.slice();
       const name = e.features[0].properties.name;
       const location = e.features[0].properties.location;
+      const pub_priv = e.features[0].properties.pub_priv;
       while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
       }
@@ -377,8 +379,9 @@
         .setLngLat(coordinates)
         .setMaxWidth("400px")
         .setHTML(
-          `<strong>Name:</strong> ${name}<br>
-              <strong>Location:</strong> ${location}`
+          `<strong>${name}</strong><br>
+              <strong>Location:</strong> ${location}<br>
+              <strong>Type:</strong> ${pub_priv}`
         )
         .addTo(map);
     });

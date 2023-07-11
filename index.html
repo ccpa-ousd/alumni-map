@@ -87,9 +87,12 @@
       'ccc': { 'color': 'cyan', 'outline': 'black' },
       'usa': { 'color': 'magenta', 'outline': 'black' },
       'mexico': { 'color': 'red', 'outline': 'black' },
-      'ncaa_d1': { 'color': 'green', 'outline': 'black' },
+      'canada': { 'color': 'maroon', 'outline': 'black' },
+      'ncaa_d1': { 'color': 'lime', 'outline': 'black' },
       'us-non-california-public': { 'color': 'teal', 'outline': 'black' },
       'us-non-california-private': { 'color': 'orange', 'outline': 'black' },
+      'ccpa_1900': { 'color': 'gold', 'outline': 'black' },
+      'ccpa_2022': { 'color': 'green', 'outline': 'black' },
     }
 
 
@@ -174,6 +177,18 @@
                 'filter': ['all', ['==', 'country', 'Mexico']],
               });
               map.addLayer({
+                'id': 'canada',
+                'type': 'circle',
+                'source': 'schools',
+                'paint': {
+                  'circle-color': categories['canada'].color,
+                  'circle-stroke-color': categories['canada'].outline,
+                  'circle-stroke-width': 2,
+                  'circle-radius': 7,
+                },
+                'filter': ['all', ['==', 'country', 'Canada']],
+              });
+              map.addLayer({
                 'id': 'us-non-california-public',
                 'type': 'circle',
                 'source': 'schools',
@@ -205,7 +220,20 @@
                   ['!=', 'pub_priv', 'Private'],
                 ],
               });
-
+              map.addLayer({
+                'id': 'ccpa_1900',
+                'type': 'circle',
+                'source': 'alumni',
+                'paint': {
+                  'circle-color': categories['ccpa_1900'].color,
+                  'circle-stroke-color': categories['ccpa_1900'].outline,
+                  'circle-stroke-width': 2,
+                  'circle-radius': 7,
+                },
+                'filter': ['all',
+                  ['==', 'grad_year', '1900'],
+                ],
+              });
 
             });
           }

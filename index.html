@@ -25,59 +25,100 @@
       <div class="col-xs-12 col-sm-12 col-md-12">
         <!-- map options start -->
         <div class='absolute fl my12 mx12 py12 px12 bg-gray-faint rounder border border--gray txt-s '>
-          <form id='params'>
-            <h4 class='txt-bold mb3'>School systems:</h4>
-            <label class='switch-container'>
-              <input type='checkbox' checked />
-              <div class='switch mr6'></div>
-              UC
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' checked />
-              <div class='switch mr6'></div>
-              CSU
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' checked />
-              <div class='switch mr6'></div>
-              CCC
-            </label>
-            <h4 class='txt-bold mb3 pt12'>School locations:</h4>
-            <label class='switch-container'>
-              <input type='checkbox' checked />
-              <div class='switch mr6'></div>
-              United States
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' />
-              <div class='switch mr6'></div>
-              Mexico
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' />
-              <div class='switch mr6'></div>
-              Canada
-            </label>
-            <h4 class='txt-bold pt12 mb3'>CCPA Alumni:</h4>
-            <label class='switch-container'>
-              <input type='checkbox' checked />
-              <div class='switch mr6'></div>
-              1900
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' checked />
-              <div class='switch mr6' style="background-color: green;"></div>
-              2022
-            </label>
+          <h4 class='txt-bold mb3'>School systems:</h4>
+          <label class='switch-container'>
+            <input type='checkbox' name='uc' checked />
+            <div class='switch mr6'></div>
+            UC
+          </label>
+          <label class='switch-container'>
+            <input type='checkbox' name='csu' checked />
+            <div class='switch mr6'></div>
+            CSU
+          </label>
+          <label class='switch-container'>
+            <input type='checkbox' name='ccc' checked />
+            <div class='switch mr6'></div>
+            CCC
+          </label>
+          <label class='switch-container'>
+            <input type='checkbox' name='hbcu' checked />
+            <div class='switch mr6'></div>
+            HBCU
+          </label>
+          <h4 class='txt-bold mb3 pt12'>School locations:</h4>
+          <label class='switch-container'>
+            <input type='checkbox' name='usa' checked />
+            <div class='switch mr6'></div>
+            United States
+          </label>
+          <label class='switch-container'>
+            <input type='checkbox' name='mexico' />
+            <div class='switch mr6'></div>
+            Mexico
+          </label>
+          <label class='switch-container'>
+            <input type='checkbox' name='canada' />
+            <div class='switch mr6'></div>
+            Canada
+          </label>
+          <label class='switch-container'>
+            <input type='checkbox' name='global' />
+            <div class='switch mr6'></div>
+            Global
+          </label>
+          <h4 class='txt-bold pt12 mb3'>CCPA Alumni:</h4>
+          <label class='switch-container'>
+            <input type='checkbox' name='ccpa_2022' checked />
+            <div class='switch mr6' style="background-color: green;"></div>
+            2022
+          </label>
+          <label class='switch-container'>
+            <input type='checkbox' name='ccpa_1900' checked />
+            <div class='switch mr6'></div>
+            1900
+          </label>
+          <label class='switch-container'>
+            <input type='checkbox' name='ccpa_2022' checked />
+            <div class='switch mr6'></div>
+            CCPA Staff
+          </label>
+          <h4 class='txt-bold pt12 mb3'>Rail transit:</h4>
+          <label class='switch-container'>
+            <input type='checkbox' name='bart_system' checked />
+            <div class='switch mr6'></div>
+            BART system
+          </label>
+          <label class='switch-container'>
+            <input type='checkbox' name='caltrain_routes' checked />
+            <div class='switch mr6'></div>
+            Caltrain routes
+          </label>
+          <label class='switch-container'>
+            <input type='checkbox' name='caltrain_stops' />
+            <div class='switch mr6'></div>
+            Caltrain stations
+          </label>
+          <label class='switch-container'>
+            <input type='checkbox' name='amtrak_routes' checked />
+            <div class='switch mr6'></div>
+            Amtrak routes
+          </label>
+          <label class='switch-container'>
+            <input type='checkbox' name='amtrak_stops' onclick="hideShow()" />
+            <div class='switch mr6'></div>
+            Amtrak stations
+          </label>
 
-            <h4 class='txt-s txt-bold pt12 mb3'>Travel mode:</h4>
+          <form id='params'>
+            <h4 class='txt-s txt-bold pt12 mb3'>Travel time:</h4>
             <div class='toggle-group align-center'>
 
               <div class='select-container'>
                 <select class='select select--s'>
                   <option name='profile' value='walking'>Walking</option>
                   <option name='profile' value='cycling'>Cycling</option>
-                  <option name='profile' value='driving'>Driving</option>
+                  <option name='profile' value='driving' selected>Driving</option>
                 </select>
                 <div class='select-arrow'></div>
               </div>
@@ -95,23 +136,30 @@
                 <input name='profile' type='radio' value='driving' checked>
                 <div class='toggle toggle--active-null toggle--null'>Driving</div>
               </label> -->
+              <div class='select-container'>
+                <select class='select select--s'>
+                  <option name='duration' value='30'>30 min</option>
+                  <option name='duration' value='45'>45 min</option>
+                  <option name='duration' value='60' selected>60 min</option>
+                </select>
+                <div class='select-arrow'></div>
+              </div>
 
             </div>
-            <h4 class='txt-s txt-bold mt12 mb3'>Max travel time:</h4>
-            <div class='toggle-group align-center'>
+            <!-- <div class='toggle-group align-center'>
               <label class='toggle-container'>
                 <input name='duration' type='radio' value='30'>
                 <div class='toggle toggle--active-null toggle--null'>30 min</div>
               </label>
               <label class='toggle-container'>
-                <input name='duration' type='radio' value='45' checked>
+                <input name='duration' type='radio' value='45'>
                 <div class='toggle toggle--active-null toggle--null'>45 min</div>
               </label>
               <label class='toggle-container'>
                 <input name='duration' type='radio' value='60'>
                 <div class='toggle toggle--active-null toggle--null'>60 min</div>
               </label>
-            </div>
+            </div> -->
           </form>
         </div>
         <!-- map options end -->
@@ -119,7 +167,7 @@
     </div>
   </div>
 
-  <div id="section2-wrapper" class="wrapper">
+  <div id=" section2-wrapper" class="wrapper">
     <div id="map"></div>
     <div id="about"></div>
   </div>
@@ -181,7 +229,7 @@
         `${urlBase}${profile}/${lon},${lat}?contours_minutes=${minutes}&denoise=1&polygons=true&access_token=${mapboxgl.accessToken}`,
         { method: 'GET' }
       );
-      console.log('i made an iso api request')
+      console.log('i made an iso api request' + profile + minutes)
       const data = await query.json();
       // Set the 'iso' source's data to what's returned by the API query
       map.getSource('iso').setData(data);
@@ -189,11 +237,15 @@
 
     // When a user changes the value of profile or duration by clicking a button, change the parameter's value and make the API query again
     params.addEventListener('change', (event) => {
-      if (event.target.name === 'profile') {
-        profile = event.target.value;
-      } else if (event.target.name === 'duration') {
-        minutes = event.target.value;
+      if (event.target[event.target.selectedIndex].getAttribute('name') === 'profile') {
+        profile = event.target[event.target.selectedIndex].value;
+        console.log('if - changed the profile')
+      } else if (event.target[event.target.selectedIndex].getAttribute('name') === 'duration') {
+        minutes = event.target[event.target.selectedIndex].value;
+        console.log('else - changed the duration')
       }
+      console.log(profile)
+      console.log(duration)
       getIso();
     });
     // isochrone end 
@@ -208,9 +260,13 @@
         if (error) throw error;
         map.addImage('uc', image);
       });
-      map.loadImage('icons/logo_sys_ccc_24px.png', (error, image) => {
+      map.loadImage('icons/logo_sys_ccc_64px_inv.png', (error, image) => {
         if (error) throw error;
         map.addImage('ccc', image);
+      });
+      map.loadImage('icons/logo-hbcu-64px.png', (error, image) => {
+        if (error) throw error;
+        map.addImage('hbcu', image);
       });
       for (let i = 0; i < datasets.length; i++) {
         $.ajax({
@@ -225,7 +281,7 @@
             }, function (err, data) {
               if (err || data.features.length === 0) {
                 console.log('⚠️ csv error!');
-                console.log(data);
+                // console.log(data);
               } else {
                 console.log("it happened")
                 console.log(data)
@@ -269,9 +325,19 @@
                 'source': 'schools',
                 'layout': {
                   'icon-image': 'ccc',
-                  'icon-size': 1,
+                  'icon-size': .45,
                 },
                 'filter': ['all', ['==', 'system_acronym', 'CCC']],
+              });
+              map.addLayer({
+                'id': 'hbcu',
+                'type': 'symbol',
+                'source': 'schools',
+                'layout': {
+                  'icon-image': 'hbcu',
+                  'icon-size': .45,
+                },
+                'filter': ['all', ['==', 'hbcu', 'TRUE']],
               });
               map.addLayer({
                 'id': 'mexico',
@@ -384,7 +450,7 @@
         },
         'poi-label'
       );
-      marker.setLngLat(lngLat).addTo(map); // Add marker at CCPA
+      // marker.setLngLat(lngLat).addTo(map); // Add marker at CCPA
       getIso(); // API call
     });
 
@@ -426,6 +492,17 @@
     map.on('mouseleave', 'clusters', () => {
       map.getCanvas().style.cursor = '';
     });
+
+    function hideShow(name) {
+      var checkbox = document.getElementById('name');
+      if (checkbox.checked != true) {
+        console.log('something got checked');
+        map.setFilter(name, ['==', ['get', 'name'], '']);
+      } else {
+
+      }
+    }
+
 
   </script>
 </body>

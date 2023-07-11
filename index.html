@@ -82,14 +82,14 @@
     ]
     categories =
     {
-      'csu': { 'color': 'purple' },
-      'uc': { 'color': 'yellow' },
-      'ccc': { 'color': 'cyan' },
-      'usa': { 'color': 'magenta' },
-      'mexico': { 'color': 'red' },
-      'ncaa_d1': { 'color': 'green' },
-      'us-non-california-public': { 'color': 'orange' },
-      'us-non-california-private': { 'color': 'silver' },
+      'csu': { 'color': 'purple', 'outline': 'black' },
+      'uc': { 'color': 'yellow', 'outline': 'black' },
+      'ccc': { 'color': 'cyan', 'outline': 'black' },
+      'usa': { 'color': 'magenta', 'outline': 'black' },
+      'mexico': { 'color': 'red', 'outline': 'black' },
+      'ncaa_d1': { 'color': 'green', 'outline': 'black' },
+      'us-non-california-public': { 'color': 'teal', 'outline': 'black' },
+      'us-non-california-private': { 'color': 'orange', 'outline': 'black' },
     }
 
 
@@ -124,14 +124,15 @@
               //   console.log(alumni[i])
               // }
               // console.log()
+
               map.addLayer({
                 'id': 'csu',
                 'type': 'circle',
                 'source': 'schools',
                 'paint': {
                   'circle-color': categories['csu'].color,
+                  'circle-stroke-color': categories['csu'].outline,
                   'circle-stroke-width': 2,
-                  'circle-stroke-color': '#000',
                   'circle-radius': 7,
                 },
                 'filter': ['all', ['==', 'system_acronym', 'CSU']],
@@ -142,8 +143,8 @@
                 'source': 'schools',
                 'paint': {
                   'circle-color': categories['uc'].color,
+                  'circle-stroke-color': categories['uc'].outline,
                   'circle-stroke-width': 2,
-                  'circle-stroke-color': '#000',
                   'circle-radius': 7,
                 },
                 'filter': ['all', ['==', 'system_acronym', 'UC']],
@@ -154,8 +155,8 @@
                 'source': 'schools',
                 'paint': {
                   'circle-color': categories['ccc'].color,
+                  'circle-stroke-color': categories['ccc'].outline,
                   'circle-stroke-width': 2,
-                  'circle-stroke-color': '#000',
                   'circle-radius': 7,
                 },
                 'filter': ['all', ['==', 'system_acronym', 'CCC']],
@@ -166,8 +167,8 @@
                 'source': 'schools',
                 'paint': {
                   'circle-color': categories['mexico'].color,
+                  'circle-stroke-color': categories['mexico'].outline,
                   'circle-stroke-width': 2,
-                  'circle-stroke-color': '#000',
                   'circle-radius': 7,
                 },
                 'filter': ['all', ['==', 'country', 'Mexico']],
@@ -178,8 +179,8 @@
                 'source': 'schools',
                 'paint': {
                   'circle-color': categories['us-non-california-public'].color,
+                  'circle-stroke-color': categories['us-non-california-public'].outline,
                   'circle-stroke-width': 2,
-                  'circle-stroke-color': '#000',
                   'circle-radius': 7,
                 },
                 'filter': ['all',
@@ -194,8 +195,8 @@
                 'source': 'schools',
                 'paint': {
                   'circle-color': categories['us-non-california-private'].color,
+                  'circle-stroke-color': categories['us-non-california-private'].outline,
                   'circle-stroke-width': 2,
-                  'circle-stroke-color': '#000',
                   'circle-radius': 7,
                 },
                 'filter': ['all',

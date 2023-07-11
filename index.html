@@ -22,10 +22,54 @@
     <div class="container">
       <div class="col-xs-12 col-sm-12 col-md-12">
         <!-- map options start -->
-        <div class='absolute fl my12 mx12 py12 px12 bg-gray-faint rounder border border--gray'>
+        <div class='absolute fl my12 mx12 py12 px12 bg-gray-faint rounder border border--gray txt-s '>
           <form id='params'>
-            <h4 class='txt-m txt-bold mb6'>Travel mode:</h4>
-            <div class='mb12 mr12 toggle-group align-center'>
+            <h4 class='txt-bold mb3'>School systems:</h4>
+            <label class='switch-container'>
+              <input type='checkbox' checked />
+              <div class='switch mr6'></div>
+              UC
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' checked />
+              <div class='switch mr6'></div>
+              CSU
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' checked />
+              <div class='switch mr6'></div>
+              CCC
+            </label>
+            <h4 class='txt-bold mb3 pt12'>School locations:</h4>
+            <label class='switch-container'>
+              <input type='checkbox' checked />
+              <div class='switch mr6'></div>
+              United States
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' />
+              <div class='switch mr6'></div>
+              Mexico
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' />
+              <div class='switch mr6'></div>
+              Canada
+            </label>
+            <h4 class='txt-bold pt12 mb3'>CCPA Alumni:</h4>
+            <label class='switch-container'>
+              <input type='checkbox' checked />
+              <div class='switch mr6'></div>
+              1900
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' checked />
+              <div class='switch mr6'></div>
+              2022
+            </label>
+
+            <h4 class='txt-s txt-bold pt12 mb3'>Travel mode:</h4>
+            <div class='toggle-group align-center'>
               <label class='toggle-container'>
                 <input name='profile' type='radio' value='walking'>
                 <div class='toggle toggle--active-null toggle--null'>Walking</div>
@@ -39,8 +83,8 @@
                 <div class='toggle toggle--active-null toggle--null'>Driving</div>
               </label>
             </div>
-            <h4 class='txt-m txt-bold mb6'>Maximum travel time:</h4>
-            <div class='mb12 mr12 toggle-group align-center'>
+            <h4 class='txt-s txt-bold mt12 mb3'>Max travel time:</h4>
+            <div class='toggle-group align-center'>
               <label class='toggle-container'>
                 <input name='duration' type='radio' value='30'>
                 <div class='toggle toggle--active-null toggle--null'>30 min</div>

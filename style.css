@@ -18,3 +18,14 @@ body { margin: 0; padding: 0; }
 .mapboxgl-popup-content {
   border: 1px solid gray;
 }
+label {
+  float: left;
+  display:block;
+  clear: both;
+  padding: .2em;
+}
+
+h4 {
+  clear: both;
+  display: block;
+}

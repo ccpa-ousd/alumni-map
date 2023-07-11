@@ -11,6 +11,8 @@
   <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+  <link href='https://api.mapbox.com/mapbox-assembly/v1.3.0/assembly.min.css' rel='stylesheet'>
+  <script src='https://api.mapbox.com/mapbox-assembly/v1.3.0/assembly.js'></script>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -19,44 +21,42 @@
   <div id="section1-wrapper" class='wrapper'>
     <div class="container">
       <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="navbar">
-          <a href="#home">About</a>
-          <div class="dropdown">
-            <button class="dropbtn" onclick="myFunction()">Select Data
-              <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-content" id="myDropdown">
-              <div>
-                <input type="checkbox" id="schools1" name="schools1" value="CSU" checked>
-                <label for="schools1"> California State University (CSU schools)</label>
-              </div>
-              <div>
-                <input type="checkbox" id="schools2" name="schools2" value="UC" checked>
-                <label for="schools2"> University of California (UC schools)</label>
-              </div>
-              <div>
-                <input type="checkbox" id="schools3" name="schools3" value="CCC" checked>
-                <label for="schools3"> California Community Colleges (CCC)</label>
-              </div>
-              <div>
-                <input type="checkbox" id="schools4" name="schools4" value="PublicUS">
-                <label for="schools4"> Public Universities (U.S.)</label>
-              </div>
-              <div>
-                <input type="checkbox" id="schools5" name="schools5" value="PrivateUS">
-                <label for="schools5"> Private Universities (U.S.)</label>
-              </div>
-              <div>
-                <input type="checkbox" id="class2022" name="class2022" value="class2022" checked>
-                <label for="class2022"> Class of 2022</label>
-              </div>
-              <div>
-                <input type="checkbox" id="class2023" name="class2023" value="class2023">
-                <label for="class2023"> Class of 2023</label>
-              </div>
+        <!-- map options start -->
+        <div class='absolute fl my12 mx12 py12 px12 bg-gray-faint rounder border border--gray'>
+          <form id='params'>
+            <h4 class='txt-m txt-bold mb6'>Travel mode:</h4>
+            <div class='mb12 mr12 toggle-group align-center'>
+              <label class='toggle-container'>
+                <input name='profile' type='radio' value='walking'>
+                <div class='toggle toggle--active-null toggle--null'>Walking</div>
+              </label>
+              <label class='toggle-container'>
+                <input name='profile' type='radio' value='cycling'>
+                <div class='toggle toggle--active-null toggle--null'>Cycling</div>
+              </label>
+              <label class='toggle-container'>
+                <input name='profile' type='radio' value='driving' checked>
+                <div class='toggle toggle--active-null toggle--null'>Driving</div>
+              </label>
             </div>
-          </div>
+            <h4 class='txt-m txt-bold mb6'>Maximum travel time:</h4>
+            <div class='mb12 mr12 toggle-group align-center'>
+              <label class='toggle-container'>
+                <input name='duration' type='radio' value='30'>
+                <div class='toggle toggle--active-null toggle--null'>30 min</div>
+              </label>
+              <label class='toggle-container'>
+                <input name='duration' type='radio' value='60' checked>
+                <div class='toggle toggle--active-null toggle--null'>60 min</div>
+              </label>
+              <label class='toggle-container'>
+                <input name='duration' type='radio' value='90'>
+                <div class='toggle toggle--active-null toggle--null'>90 min</div>
+              </label>
+            </div>
+          </form>
         </div>
+        <!-- map options end -->
       </div>
     </div>
   </div>
@@ -71,17 +71,19 @@
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/domlet/cli3xwl4000vf01r5hp28gm2q',
-      center: [-121.19564, 37.76047],
-      zoom: 3.5,
+      center: [-122.219355, 37.783520],
+      zoom: 7,
       projection: 'mercator'
     });
 
     datasets = [
-      { 'name': 'schools', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=411964576&single=true&output=csv', 'color': '#F1F075' }, // yellow
-      { 'name': 'alumni', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=435305116&single=true&output=csv', 'color': '#11b4da' },
+      { 'name': 'schools', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=411964576&single=true&output=csv' },
+      { 'name': 'alumni', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=435305116&single=true&output=csv' },
     ]
     categories =
     {
+      'ccpa_1900': { 'color': 'gold', 'outline': 'black' },
+      'ccpa_2022': { 'color': 'green', 'outline': 'black' },
       'csu': { 'color': 'purple', 'outline': 'black' },
       'uc': { 'color': 'yellow', 'outline': 'black' },
       'ccc': { 'color': 'cyan', 'outline': 'black' },
@@ -91,13 +93,72 @@
       'ncaa_d1': { 'color': 'lime', 'outline': 'black' },
       'us-non-california-public': { 'color': 'teal', 'outline': 'black' },
       'us-non-california-private': { 'color': 'orange', 'outline': 'black' },
-      'ccpa_1900': { 'color': 'gold', 'outline': 'black' },
-      'ccpa_2022': { 'color': 'green', 'outline': 'black' },
+    }
+    layers = []
+    for (let i = 0; i < categories.length; i++) {
+      console.log(categories[i])
+      console.log('hi')
+      layers.push(categories[i])
+    }
+    // isochrone start
+    // Target the params form in the HTML
+    const params = document.getElementById('params');
+
+    // Create variables to use in getIso()
+    const urlBase = 'https://api.mapbox.com/isochrone/v1/mapbox/';
+    const lon = -122.1928997670688;
+    const lat = 37.761674505667884;
+    let profile = 'driving';
+    let minutes = 60;
+
+    // Set up a marker that you can use to show the query's coordinates
+    const marker = new mapboxgl.Marker({
+      'color': '#314ccd'
+    });
+
+    // Create a LngLat object to use in the marker initialization
+    // https://docs.mapbox.com/mapbox-gl-js/api/#lnglat
+    const lngLat = {
+      lon: lon,
+      lat: lat
+    };
+
+    // Create a function that sets up the Isochrone API query then makes a fetch call
+    async function getIso() {
+      const query = await fetch(
+        `${urlBase}${profile}/${lon},${lat}?contours_minutes=${minutes}&denoise=1&polygons=true&access_token=${mapboxgl.accessToken}`,
+        { method: 'GET' }
+      );
+      const data = await query.json();
+      // Set the 'iso' source's data to what's returned by the API query
+      map.getSource('iso').setData(data);
     }
 
+    // When a user changes the value of profile or duration by clicking a button, change the parameter's value and make the API query again
+    params.addEventListener('change', (event) => {
+      if (event.target.name === 'profile') {
+        profile = event.target.value;
+      } else if (event.target.name === 'duration') {
+        minutes = event.target.value;
+      }
+      getIso();
+    });
+    // isochrone end 
 
     // First wait for the map to load!
     map.on('load', () => {
+      map.loadImage('icons/logo_sys_csu_24px_sq.png', (error, image) => {
+        if (error) throw error;
+        map.addImage('csu', image);
+      });
+      map.loadImage('icons/logo_sys_uc_24px_sq.png', (error, image) => {
+        if (error) throw error;
+        map.addImage('uc', image);
+      });
+      map.loadImage('icons/logo_sys_ccc_24px.png', (error, image) => {
+        if (error) throw error;
+        map.addImage('ccc', image);
+      });
       for (let i = 0; i < datasets.length; i++) {
         $.ajax({
           type: "GET",
@@ -123,44 +184,38 @@
               // ToDo: Prevent hoisting:
               const alumni = map.getStyle().sources['alumni'].data.features
               const schools = map.getStyle().sources['schools'].data.features
-              // for (let i = 0; i < alumni.length; i++) {
-              //   console.log(alumni[i])
-              // }
-              // console.log()
 
               map.addLayer({
-                'id': 'csu',
-                'type': 'circle',
-                'source': 'schools',
-                'paint': {
-                  'circle-color': categories['csu'].color,
-                  'circle-stroke-color': categories['csu'].outline,
-                  'circle-stroke-width': 2,
-                  'circle-radius': 7,
-                },
-                'filter': ['all', ['==', 'system_acronym', 'CSU']],
-              });
-              map.addLayer({
                 'id': 'uc',
-                'type': 'circle',
+                'type': 'symbol',
                 'source': 'schools',
+                'layout': {
+                  'icon-image': 'uc',
+                  'icon-size': .9,
+                },
                 'paint': {
-                  'circle-color': categories['uc'].color,
-                  'circle-stroke-color': categories['uc'].outline,
-                  'circle-stroke-width': 2,
-                  'circle-radius': 7,
+                  'icon-halo-color': '#fff',
+                  'icon-halo-width': 10
                 },
                 'filter': ['all', ['==', 'system_acronym', 'UC']],
               });
               map.addLayer({
-                'id': 'ccc',
-                'type': 'circle',
+                'id': 'csu',
+                'type': 'symbol',
                 'source': 'schools',
-                'paint': {
-                  'circle-color': categories['ccc'].color,
-                  'circle-stroke-color': categories['ccc'].outline,
-                  'circle-stroke-width': 2,
-                  'circle-radius': 7,
+                'layout': {
+                  'icon-image': 'csu',
+                  'icon-size': .7,
+                },
+                'filter': ['all', ['==', 'system_acronym', 'CSU']],
+              });
+              map.addLayer({
+                'id': 'ccc',
+                'type': 'symbol',
+                'source': 'schools',
+                'layout': {
+                  'icon-image': 'ccc',
+                  'icon-size': .7,
                 },
                 'filter': ['all', ['==', 'system_acronym', 'CCC']],
               });
@@ -171,7 +226,7 @@
                 'paint': {
                   'circle-color': categories['mexico'].color,
                   'circle-stroke-color': categories['mexico'].outline,
-                  'circle-stroke-width': 2,
+                  'circle-stroke-width': 1,
                   'circle-radius': 7,
                 },
                 'filter': ['all', ['==', 'country', 'Mexico']],
@@ -183,7 +238,7 @@
                 'paint': {
                   'circle-color': categories['canada'].color,
                   'circle-stroke-color': categories['canada'].outline,
-                  'circle-stroke-width': 2,
+                  'circle-stroke-width': 1,
                   'circle-radius': 7,
                 },
                 'filter': ['all', ['==', 'country', 'Canada']],
@@ -195,7 +250,7 @@
                 'paint': {
                   'circle-color': categories['us-non-california-public'].color,
                   'circle-stroke-color': categories['us-non-california-public'].outline,
-                  'circle-stroke-width': 2,
+                  'circle-stroke-width': 1,
                   'circle-radius': 7,
                 },
                 'filter': ['all',
@@ -211,7 +266,7 @@
                 'paint': {
                   'circle-color': categories['us-non-california-private'].color,
                   'circle-stroke-color': categories['us-non-california-private'].outline,
-                  'circle-stroke-width': 2,
+                  'circle-stroke-width': 1,
                   'circle-radius': 7,
                 },
                 'filter': ['all',
@@ -227,7 +282,7 @@
                 'paint': {
                   'circle-color': categories['ccpa_1900'].color,
                   'circle-stroke-color': categories['ccpa_1900'].outline,
-                  'circle-stroke-width': 2,
+                  'circle-stroke-width': 1,
                   'circle-radius': 7,
                 },
                 'filter': ['all',
@@ -238,49 +293,71 @@
             });
           }
         });
-
-        // inspect a feature on click
-        map.on('click', ['csu'], (e) => {
-          const features = map.queryRenderedFeatures(e.point, {
-            layers: ['csu']
-          });
-        });
-
-
-        // When a click event occurs on a feature in
-        // the ... layer, open a popup at
-        // the location of the feature, with
-        // description HTML from its properties.
-        map.on('click', ['csu', 'schools'], (e) => {
-          const coordinates = e.features[0].geometry.coordinates.slice();
-          const name = e.features[0].properties.name;
-          const location = e.features[0].properties.location;
-          // console.log(e.features[0].properties)
-          // console.log(name)
-          // console.log(location)
-          // solve multiple copies if zoom is low
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-          }
-
-          new mapboxgl.Popup()
-            .setLngLat(coordinates)
-            .setHTML(
-              `<strong>Name:</strong> ${name}<br>
-              <strong>Location:</strong> ${location}`
-            )
-            .addTo(map);
-        });
-
-        map.on('mouseenter', 'clusters', () => {
-          map.getCanvas().style.cursor = 'pointer';
-        });
-        map.on('mouseleave', 'clusters', () => {
-          map.getCanvas().style.cursor = '';
-        });
       };
+    });
 
-    })
+    map.on('load', () => {
+      map.addSource('iso', {
+        type: 'geojson',
+        data: {
+          'type': 'FeatureCollection',
+          'features': []
+        }
+      });
+      map.addLayer(
+        {
+          'id': 'isoLayer',
+          'type': 'line',
+          'source': 'iso',
+          'paint': {
+            'line-color': '#5a3fc0',
+            'line-opacity': 1,
+            'line-width': 2,
+          }
+        },
+        'poi-label'
+      );
+      marker.setLngLat(lngLat).addTo(map); // Add marker at CCPA
+      getIso(); // API call
+    });
+
+    // inspect a feature on click
+    map.on('click', ['csu'], (e) => {
+      const features = map.queryRenderedFeatures(e.point, {
+        layers: ['csu']
+      });
+    });
+
+
+    // When a click event occurs on a feature in
+    // the ... layer, open a popup at
+    // the location of the feature, with
+    // description HTML from its properties.
+    map.on('click', ['ccpa_1900', 'ccpa_2022', 'csu', 'uc', 'ccc', 'usa', 'mexico', 'canada', 'ncaa_d1', 'us-non-california-public', 'us-non-california-private'], (e) => {
+      const coordinates = e.features[0].geometry.coordinates.slice();
+      const name = e.features[0].properties.name;
+      const location = e.features[0].properties.location;
+      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+      }
+
+      new mapboxgl.Popup()
+        .setLngLat(coordinates)
+        .setMaxWidth("400px")
+        .setHTML(
+          `<strong>Name:</strong> ${name}<br>
+              <strong>Location:</strong> ${location}`
+        )
+        .addTo(map);
+    });
+
+    map.on('mouseenter', 'clusters', () => {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseleave', 'clusters', () => {
+      map.getCanvas().style.cursor = '';
+    });
+
     // menu
     /* When the user clicks on the button, 
     toggle between hiding and showing the dropdown content */

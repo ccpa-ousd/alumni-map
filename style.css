@@ -8,71 +8,13 @@ body { margin: 0; padding: 0; }
 }
 .container {
   background: rgba(0, 0, 0, 0.75);
-  color: #fff;
+  /* color: #fff; */
   position:relative;
   z-index: 1
 }
-/* begin dropdown */
-.navbar {
-  overflow: hidden;
-  background-color: #333;
-  font-family: Arial, Helvetica, sans-serif;
+.rounder {
+  border-radius: .7em;
 }
-
-.navbar a {
-  float: left;
-  font-size: 16px;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+.mapboxgl-popup-content {
+  border: 1px solid gray;
 }
-
-.dropdown {
-  float: left;
-  overflow: hidden;
-}
-
-.dropdown .dropbtn {
-  cursor: pointer;
-  font-size: 16px;  
-  border: none;
-  outline: none;
-  color: white;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
-}
-
-.navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus .dropdown-content div:hover{
-  background-color: #006000;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background: rgba(0, 0, 0, 0.75);
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  padding: 0.8em;
-}
-
-.dropdown-content div {
-  float: none;
-  color: #fff;
-  padding: 0.2em;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.show {
-  display: block;
-}
-/* end dropdown */

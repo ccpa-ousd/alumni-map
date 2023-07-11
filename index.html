@@ -90,12 +90,12 @@
                 <div class='toggle toggle--active-null toggle--null'>30 min</div>
               </label>
               <label class='toggle-container'>
-                <input name='duration' type='radio' value='60' checked>
-                <div class='toggle toggle--active-null toggle--null'>60 min</div>
+                <input name='duration' type='radio' value='45' checked>
+                <div class='toggle toggle--active-null toggle--null'>45 min</div>
               </label>
               <label class='toggle-container'>
-                <input name='duration' type='radio' value='90'>
-                <div class='toggle toggle--active-null toggle--null'>90 min</div>
+                <input name='duration' type='radio' value='60'>
+                <div class='toggle toggle--active-null toggle--null'>60 min</div>
               </label>
             </div>
           </form>
@@ -114,7 +114,7 @@
     mapboxgl.accessToken = 'pk.eyJ1IjoiZG9tbGV0IiwiYSI6ImNsaTN5MXhseTA0bWMzZHBoNTlnaG1hYmUifQ.9IpTpyptAxhC6ZoUqKCd9w';
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/domlet/cli3xwl4000vf01r5hp28gm2q',
+      style: 'mapbox://styles/domlet/cljxrbgx0000c01rac7og3ym6',
       center: [-122.219355, 37.783520],
       zoom: 7,
       projection: 'mercator'
@@ -138,12 +138,6 @@
       'us-non-california-public': { 'color': 'teal', 'outline': 'black' },
       'us-non-california-private': { 'color': 'orange', 'outline': 'black' },
     }
-    layers = []
-    for (let i = 0; i < categories.length; i++) {
-      console.log(categories[i])
-      console.log('hi')
-      layers.push(categories[i])
-    }
     // isochrone start
     // Target the params form in the HTML
     const params = document.getElementById('params');
@@ -155,13 +149,7 @@
     let profile = 'driving';
     let minutes = 60;
 
-    // Set up a marker that you can use to show the query's coordinates
-    const marker = new mapboxgl.Marker({
-      'color': '#314ccd'
-    });
-
     // Create a LngLat object to use in the marker initialization
-    // https://docs.mapbox.com/mapbox-gl-js/api/#lnglat
     const lngLat = {
       lon: lon,
       lat: lat
@@ -235,7 +223,7 @@
                 'source': 'schools',
                 'layout': {
                   'icon-image': 'uc',
-                  'icon-size': .9,
+                  'icon-size': 1,
                 },
                 'paint': {
                   'icon-halo-color': '#fff',
@@ -249,7 +237,7 @@
                 'source': 'schools',
                 'layout': {
                   'icon-image': 'csu',
-                  'icon-size': .7,
+                  'icon-size': 1,
                 },
                 'filter': ['all', ['==', 'system_acronym', 'CSU']],
               });
@@ -259,7 +247,7 @@
                 'source': 'schools',
                 'layout': {
                   'icon-image': 'ccc',
-                  'icon-size': .7,
+                  'icon-size': 1,
                 },
                 'filter': ['all', ['==', 'system_acronym', 'CCC']],
               });
@@ -402,23 +390,6 @@
       map.getCanvas().style.cursor = '';
     });
 
-    // menu
-    /* When the user clicks on the button, 
-    toggle between hiding and showing the dropdown content */
-    function myFunction() {
-      console.log('hi')
-      document.getElementById("myDropdown").classList.toggle("show");
-    }
-
-    // Close the dropdown if the user clicks outside of it
-    window.onclick = function (e) {
-      if (!e.target.matches('.dropbtn')) {
-        var myDropdown = document.getElementById("myDropdown");
-        if (myDropdown.classList.contains('show')) {
-          myDropdown.classList.remove('show');
-        }
-      }
-    }
   </script>
 </body>
 

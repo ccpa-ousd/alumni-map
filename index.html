@@ -13,6 +13,8 @@
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
   <link href='https://api.mapbox.com/mapbox-assembly/v1.3.0/assembly.min.css' rel='stylesheet'>
   <script src='https://api.mapbox.com/mapbox-assembly/v1.3.0/assembly.js'></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -64,13 +66,24 @@
             </label>
             <label class='switch-container'>
               <input type='checkbox' checked />
-              <div class='switch mr6'></div>
+              <div class='switch mr6' style="background-color: green;"></div>
               2022
             </label>
 
             <h4 class='txt-s txt-bold pt12 mb3'>Travel mode:</h4>
             <div class='toggle-group align-center'>
-              <label class='toggle-container'>
+
+              <div class='select-container'>
+                <select class='select select--s'>
+                  <option name='profile' value='walking'>Walking</option>
+                  <option name='profile' value='cycling'>Cycling</option>
+                  <option name='profile' value='driving'>Driving</option>
+                </select>
+                <div class='select-arrow'></div>
+              </div>
+
+
+              <!-- <label class='toggle-container'>
                 <input name='profile' type='radio' value='walking'>
                 <div class='toggle toggle--active-null toggle--null'>Walking</div>
               </label>
@@ -81,7 +94,8 @@
               <label class='toggle-container'>
                 <input name='profile' type='radio' value='driving' checked>
                 <div class='toggle toggle--active-null toggle--null'>Driving</div>
-              </label>
+              </label> -->
+
             </div>
             <h4 class='txt-s txt-bold mt12 mb3'>Max travel time:</h4>
             <div class='toggle-group align-center'>
@@ -119,6 +133,12 @@
       zoom: 7,
       projection: 'mercator'
     });
+    map.addControl(
+      new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+      })
+    );
 
     datasets = [
       { 'name': 'schools', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=411964576&single=true&output=csv' },
@@ -161,6 +181,7 @@
         `${urlBase}${profile}/${lon},${lat}?contours_minutes=${minutes}&denoise=1&polygons=true&access_token=${mapboxgl.accessToken}`,
         { method: 'GET' }
       );
+      console.log('i made an iso api request')
       const data = await query.json();
       // Set the 'iso' source's data to what's returned by the API query
       map.getSource('iso').setData(data);
@@ -320,6 +341,19 @@
                 },
                 'filter': ['all',
                   ['==', 'grad_year', '1900'],
+                ],
+              }); map.addLayer({
+                'id': 'ccpa_2022',
+                'type': 'circle',
+                'source': 'alumni',
+                'paint': {
+                  'circle-color': categories['ccpa_2022'].color,
+                  'circle-stroke-color': categories['ccpa_2022'].outline,
+                  'circle-stroke-width': 1,
+                  'circle-radius': 7,
+                },
+                'filter': ['all',
+                  ['==', 'grad_year', '2022'],
                 ],
               });
 

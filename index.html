@@ -25,114 +25,117 @@
       <div class="col-xs-12 col-sm-12 col-md-12">
         <!-- map options start -->
         <div class='absolute fl my12 mx12 py12 px12 bg-gray-faint rounder border border--gray txt-s '>
-          <h4 class='txt-bold mb3'>School systems:</h4>
-          <label class='switch-container'>
-            <input type='checkbox' name='uc' checked />
-            <div class='switch mr6'></div>
-            UC
-          </label>
-          <label class='switch-container'>
-            <input type='checkbox' name='csu' checked />
-            <div class='switch mr6'></div>
-            CSU
-          </label>
-          <label class='switch-container'>
-            <input type='checkbox' name='ccc' checked />
-            <div class='switch mr6'></div>
-            CCC
-          </label>
-          <label class='switch-container'>
-            <input type='checkbox' name='hbcu' checked />
-            <div class='switch mr6'></div>
-            HBCU
-          </label>
-          <label class='switch-container'>
-            <input type='checkbox' name='ivys' />
-            <div class='switch mr6'></div>
-            Ivys
-          </label>
-          <label class='switch-container'>
-            <input type='checkbox' name='d1' />
-            <div class='switch mr6'></div>
-            NAACP D1
-          </label>
-          <label class='switch-container'>
-            <input type='checkbox' name='d2' />
-            <div class='switch mr6'></div>
-            NAACP D2
-          </label>
-          <label class='switch-container'>
-            <input type='checkbox' name='d3' />
-            <div class='switch mr6'></div>
-            NAACP D3
-          </label>
-          <h4 class='txt-bold mb3 pt12'>School locations:</h4>
-          <label class='switch-container'>
-            <input type='checkbox' name='california' checked />
-            <div class='switch mr6'></div>
-            California
-          </label>
-          <label class='switch-container'>
-            <input type='checkbox' name='usa' checked />
-            <div class='switch mr6'></div>
-            United States
-          </label>
-          <label class='switch-container'>
-            <input type='checkbox' name='north_america' />
-            <div class='switch mr6'></div>
-            North America
-          </label>
-          </label>
-          <label class='switch-container'>
-            <input type='checkbox' name='global' />
-            <div class='switch mr6'></div>
-            Global
-          </label>
-          <h4 class='txt-bold pt12 mb3'>CCPA Alumni:</h4>
-          <label class='switch-container'>
-            <input type='checkbox' name='ccpa_2022' checked />
-            <div class='switch mr6' style="background-color: green;"></div>
-            2022
-          </label>
-          <label class='switch-container'>
-            <input type='checkbox' name='ccpa_1900' checked />
-            <div class='switch mr6'></div>
-            1900
-          </label>
-          <label class='switch-container'>
-            <input type='checkbox' name='ccpa_2022' checked />
-            <div class='switch mr6'></div>
-            CCPA Staff
-          </label>
-          <h4 class='txt-bold pt12 mb3'>Rail transit:</h4>
-          <label class='switch-container'>
-            <input type='checkbox' name='bart_system' checked />
-            <div class='switch mr6'></div>
-            BART system
-          </label>
-          <label class='switch-container'>
-            <input type='checkbox' name='caltrain_routes' checked />
-            <div class='switch mr6'></div>
-            Caltrain routes
-          </label>
-          <label class='switch-container'>
-            <input type='checkbox' name='caltrain_stops' />
-            <div class='switch mr6'></div>
-            Caltrain stations
-          </label>
-          <label class='switch-container'>
-            <input type='checkbox' name='amtrak_routes' checked />
-            <div class='switch mr6'></div>
-            Amtrak routes
-          </label>
-          <label class='switch-container'>
-            <input type='checkbox' name='amtrak_stops' onclick="hideShow()" />
-            <div class='switch mr6'></div>
-            Amtrak stations
-          </label>
+          <form id='options'>
+            <h4 class='txt-bold '>School groups:</h4>
+            <label class='switch-container'>
+              <input type='checkbox' name='uc' checked />
+              <div class='switch mr6'></div>
+              UC
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' name='csu' checked />
+              <div class='switch mr6'></div>
+              CSU
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' name='ccc' checked />
+              <div class='switch mr6'></div>
+              CCC
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' name='hbcu' checked />
+              <div class='switch mr6'></div>
+              HBCU
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' name='ivy' />
+              <div class='switch mr6'></div>
+              Ivy+
+            </label>
+            <h4 class='txt-bold pt12 '>NCAA:</h4>
+            <label class='switch-container'>
+              <input type='checkbox' name='d1' />
+              <div class='switch mr6'></div>
+              D1
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' name='d2' />
+              <div class='switch mr6'></div>
+              D2
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' name='d3' />
+              <div class='switch mr6'></div>
+              D3
+            </label>
+            <h4 class='txt-bold  pt12'>School locations:</h4>
+            <label class='switch-container'>
+              <input type='checkbox' name='california' checked />
+              <div class='switch mr6'></div>
+              California
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' name='usa' checked />
+              <div class='switch mr6'></div>
+              United States
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' name='north_america' />
+              <div class='switch mr6'></div>
+              North America
+            </label>
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' name='global' />
+              <div class='switch mr6'></div>
+              Global
+            </label>
+            <h4 class='txt-bold pt12 '>CCPA Alumni:</h4>
+            <label class='switch-container'>
+              <input type='checkbox' name='ccpa_2022' checked />
+              <div class='switch mr6' style="background-color: green;"></div>
+              2022
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' name='ccpa_1900' checked />
+              <div class='switch mr6'></div>
+              1900
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' name='ccpa_2022' checked />
+              <div class='switch mr6'></div>
+              CCPA Staff
+            </label>
+            <h4 class='txt-bold pt12 '>Rail transit:</h4>
+            <label class='switch-container'>
+              <input type='checkbox' name='bart_stops' checked />
+              <div class='switch mr6'></div>
+              BART
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' name='caltrain_routes' checked />
+              <div class='switch mr6'></div>
+              Caltrain routes
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' name='caltrain_stops' />
+              <div class='switch mr6'></div>
+              Caltrain stations
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' name='amtrak_routes' checked />
+              <div class='switch mr6'></div>
+              Amtrak routes
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' name='amtrak_stops' />
+              <div class='switch mr6'></div>
+              Amtrak stations
+            </label>
+          </form>
 
           <form id='params'>
-            <h4 class='txt-s txt-bold pt12 mb3'>Travel time:</h4>
+            <h4 class='txt-s txt-bold pt12 '>Travel time:</h4>
             <div class='toggle-group align-center'>
               <div class='select-container'>
                 <select class='select select--s'>
@@ -182,17 +185,30 @@
     ]
     categories =
     {
-      'ccpa_1900': { 'color': 'gold', 'outline': 'black' },
-      'ccpa_2022': { 'color': 'green', 'outline': 'black' },
-      'csu': { 'color': 'purple', 'outline': 'black' },
-      'uc': { 'color': 'yellow', 'outline': 'black' },
-      'ccc': { 'color': 'cyan', 'outline': 'black' },
-      'usa': { 'color': 'magenta', 'outline': 'black' },
-      'mexico': { 'color': 'red', 'outline': 'black' },
-      'canada': { 'color': 'maroon', 'outline': 'black' },
+      'uc': { 'color': '#002A56', 'outline': 'black' },
+      'csu': { 'color': '#E61A37', 'outline': 'black' },
+      'ccc': { 'color': 'blue', 'outline': 'black' },
+      'hbcu': { 'color': 'aqua', 'outline': 'black' },
+      'ivy': { 'color': 'aqua', 'outline': 'black' },
       'ncaa_d1': { 'color': 'lime', 'outline': 'black' },
+      'ncaa_d2': { 'color': 'lime', 'outline': 'black' },
+      'ncaa_d3': { 'color': 'lime', 'outline': 'black' },
+      'usa': { 'color': 'magenta', 'outline': 'black' },
+      'mexico': { 'color': 'cyan', 'outline': 'black' },
+      // north america
+      'california': { 'color': 'lavender', 'outline': 'black' },
+      'canada': { 'color': 'maroon', 'outline': 'black' },
+      'global': { 'color': 'pink', 'outline': 'black' },
       'us-non-california-public': { 'color': 'teal', 'outline': 'black' },
       'us-non-california-private': { 'color': 'orange', 'outline': 'black' },
+      'ccpa_2022': { 'color': '#006000', 'outline': 'white' }, // green
+      'ccpa_1900': { 'color': '#006000', 'outline': 'white' }, // green
+      'bart_routes': { 'color': '', 'outline': '' },
+      'bart_stops': { 'color': '', 'outline': '' },
+      'caltrain_routes': { 'color': '', 'outline': '' },
+      'caltrain_stops': { 'color': '', 'outline': '' },
+      'amtrak_routes': { 'color': '', 'outline': '' },
+      'amtrak_stops': { 'color': '', 'outline': '' },
     }
     // isochrone start
     // Target the params form in the HTML
@@ -203,7 +219,7 @@
     const lon = -122.1928997670688;
     const lat = 37.761674505667884;
     let profile = 'walking';
-    let minutes = 0;
+    let minutes = 30;
 
     // Create a LngLat object to use in the marker initialization
     const lngLat = {
@@ -222,6 +238,29 @@
       // Set the 'iso' source's data to what's returned by the API query
       map.getSource('iso').setData(data);
     }
+    options.addEventListener('change', (event) => {
+      // find a layer with a matching name:
+      for (var key in categories) {
+        if (key === event.target.name) {
+          console.log('found it');
+          // check if checkbox is checked or unchecked
+          checked = ''
+          if (event.target.checked) {
+            // if it is checked, use `setlayoutproperty` to show layer
+            console.log(event.target.name + ' is now checked')
+            map.setLayoutProperty(event.target.name, 'visibility', 'visible');
+            checked = true
+          } else {
+            // else, hide the layer
+            console.log(event.target.name + ' is now unchecked')
+            map.setLayoutProperty(event.target.name, 'visibility', 'none');
+            checked = false
+          }
+        } else {
+          console.log('there is no layer with that name')
+        }
+      }
+    });
 
     // When a user changes the value of profile or duration by clicking a button, change the parameter's value and make the API query again
     params.addEventListener('change', (event) => {
@@ -278,7 +317,7 @@
                 type: 'geojson',
                 data: data,
               });
-              // ToDo: Prevent hoisting:
+              // ToDo: Prevent errors caused by hoisting:
               const alumni = map.getStyle().sources['alumni'].data.features
               const schools = map.getStyle().sources['schools'].data.features
 
@@ -480,17 +519,6 @@
     map.on('mouseleave', 'clusters', () => {
       map.getCanvas().style.cursor = '';
     });
-
-    function hideShow(event) {
-      var checkbox = document.getElementById('name');
-      if (checkbox.checked != true) {
-        console.log('something got checked');
-        map.setFilter(name, ['==', ['get', 'name'], '']);
-      } else {
-
-      }
-    }
-
 
   </script>
 </body>

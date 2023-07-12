@@ -46,21 +46,42 @@
             <div class='switch mr6'></div>
             HBCU
           </label>
+          <label class='switch-container'>
+            <input type='checkbox' name='ivys' />
+            <div class='switch mr6'></div>
+            Ivys
+          </label>
+          <label class='switch-container'>
+            <input type='checkbox' name='d1' />
+            <div class='switch mr6'></div>
+            NAACP D1
+          </label>
+          <label class='switch-container'>
+            <input type='checkbox' name='d2' />
+            <div class='switch mr6'></div>
+            NAACP D2
+          </label>
+          <label class='switch-container'>
+            <input type='checkbox' name='d3' />
+            <div class='switch mr6'></div>
+            NAACP D3
+          </label>
           <h4 class='txt-bold mb3 pt12'>School locations:</h4>
+          <label class='switch-container'>
+            <input type='checkbox' name='california' checked />
+            <div class='switch mr6'></div>
+            California
+          </label>
           <label class='switch-container'>
             <input type='checkbox' name='usa' checked />
             <div class='switch mr6'></div>
             United States
           </label>
           <label class='switch-container'>
-            <input type='checkbox' name='mexico' />
+            <input type='checkbox' name='north_america' />
             <div class='switch mr6'></div>
-            Mexico
+            North America
           </label>
-          <label class='switch-container'>
-            <input type='checkbox' name='canada' />
-            <div class='switch mr6'></div>
-            Canada
           </label>
           <label class='switch-container'>
             <input type='checkbox' name='global' />
@@ -137,10 +158,7 @@
     </div>
   </div>
 
-  <div id=" section2-wrapper" class="wrapper">
-    <div id="map"></div>
-    <div id="about"></div>
-  </div>
+  <div id="map"></div>
 
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiZG9tbGV0IiwiYSI6ImNsaTN5MXhseTA0bWMzZHBoNTlnaG1hYmUifQ.9IpTpyptAxhC6ZoUqKCd9w';
@@ -214,6 +232,8 @@
         minutes = event.target[event.target.selectedIndex].value;
         console.log('else - changed the duration')
       }
+      console.log(this.name)
+      console.log(this.value)
       getIso();
     });
     // isochrone end 
@@ -461,7 +481,7 @@
       map.getCanvas().style.cursor = '';
     });
 
-    function hideShow(name) {
+    function hideShow(event) {
       var checkbox = document.getElementById('name');
       if (checkbox.checked != true) {
         console.log('something got checked');

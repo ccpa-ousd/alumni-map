@@ -113,53 +113,23 @@
           <form id='params'>
             <h4 class='txt-s txt-bold pt12 mb3'>Travel time:</h4>
             <div class='toggle-group align-center'>
-
               <div class='select-container'>
                 <select class='select select--s'>
-                  <option name='profile' value='walking'>Walking</option>
+                  <option name='profile' value='walking' selected>Walking</option>
                   <option name='profile' value='cycling'>Cycling</option>
-                  <option name='profile' value='driving' selected>Driving</option>
+                  <option name='profile' value='driving'>Driving</option>
                 </select>
                 <div class='select-arrow'></div>
               </div>
-
-
-              <!-- <label class='toggle-container'>
-                <input name='profile' type='radio' value='walking'>
-                <div class='toggle toggle--active-null toggle--null'>Walking</div>
-              </label>
-              <label class='toggle-container'>
-                <input name='profile' type='radio' value='cycling'>
-                <div class='toggle toggle--active-null toggle--null'>Cycling</div>
-              </label>
-              <label class='toggle-container'>
-                <input name='profile' type='radio' value='driving' checked>
-                <div class='toggle toggle--active-null toggle--null'>Driving</div>
-              </label> -->
               <div class='select-container'>
                 <select class='select select--s'>
-                  <option name='duration' value='30'>30 min</option>
+                  <option name='duration' value='30' selected>30 min</option>
                   <option name='duration' value='45'>45 min</option>
-                  <option name='duration' value='60' selected>60 min</option>
+                  <option name='duration' value='60'>60 min</option>
                 </select>
                 <div class='select-arrow'></div>
               </div>
-
             </div>
-            <!-- <div class='toggle-group align-center'>
-              <label class='toggle-container'>
-                <input name='duration' type='radio' value='30'>
-                <div class='toggle toggle--active-null toggle--null'>30 min</div>
-              </label>
-              <label class='toggle-container'>
-                <input name='duration' type='radio' value='45'>
-                <div class='toggle toggle--active-null toggle--null'>45 min</div>
-              </label>
-              <label class='toggle-container'>
-                <input name='duration' type='radio' value='60'>
-                <div class='toggle toggle--active-null toggle--null'>60 min</div>
-              </label>
-            </div> -->
           </form>
         </div>
         <!-- map options end -->
@@ -214,8 +184,8 @@
     const urlBase = 'https://api.mapbox.com/isochrone/v1/mapbox/';
     const lon = -122.1928997670688;
     const lat = 37.761674505667884;
-    let profile = 'driving';
-    let minutes = 60;
+    let profile = 'walking';
+    let minutes = 0;
 
     // Create a LngLat object to use in the marker initialization
     const lngLat = {
@@ -229,7 +199,7 @@
         `${urlBase}${profile}/${lon},${lat}?contours_minutes=${minutes}&denoise=1&polygons=true&access_token=${mapboxgl.accessToken}`,
         { method: 'GET' }
       );
-      console.log('i made an iso api request' + profile + minutes)
+      console.log('iso api request' + profile + minutes)
       const data = await query.json();
       // Set the 'iso' source's data to what's returned by the API query
       map.getSource('iso').setData(data);
@@ -244,8 +214,6 @@
         minutes = event.target[event.target.selectedIndex].value;
         console.log('else - changed the duration')
       }
-      console.log(profile)
-      console.log(duration)
       getIso();
     });
     // isochrone end 
@@ -260,7 +228,7 @@
         if (error) throw error;
         map.addImage('uc', image);
       });
-      map.loadImage('icons/logo_sys_ccc_64px_inv.png', (error, image) => {
+      map.loadImage('icons/logo-ccc.png', (error, image) => {
         if (error) throw error;
         map.addImage('ccc', image);
       });
@@ -325,7 +293,7 @@
                 'source': 'schools',
                 'layout': {
                   'icon-image': 'ccc',
-                  'icon-size': .45,
+                  'icon-size': .17,
                 },
                 'filter': ['all', ['==', 'system_acronym', 'CCC']],
               });

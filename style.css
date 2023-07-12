@@ -29,3 +29,12 @@ h4 {
   clear: both;
   display: block;
 }
+.popup-img {
+  max-height: 200px;
+  max-width: 200px;
+  /* float: left; */
+  padding: 0 0.5em 0.5em 0;
+}
+.popup-info {
+  clear: both;
+}

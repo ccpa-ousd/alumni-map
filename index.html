@@ -42,7 +42,7 @@
               <div class='switch mr6'></div>
               CCC
             </label>
-            <label class='switch-container'>
+            <!-- <label class='switch-container'>
               <input type='checkbox' name='hbcu' checked />
               <div class='switch mr6'></div>
               HBCU
@@ -51,7 +51,7 @@
               <input type='checkbox' name='ivy' />
               <div class='switch mr6'></div>
               Ivy+
-            </label>
+            </label> -->
             <!-- <h4 class='txt-bold pt12 '>NCAA:</h4>
             <label class='switch-container'>
               <input type='checkbox' name='ncaa_d1' />
@@ -201,9 +201,9 @@
       'global': { 'color': 'pink', 'outline': 'black', 'source': 'schools' },
       'us-non-california-public': { 'color': 'teal', 'outline': 'black', 'source': 'schools' },
       'us-non-california-private': { 'color': 'orange', 'outline': 'black', 'source': 'schools' },
-      'ccpa_2022': { 'color': '#006000', 'outline': 'white', 'source': 'alumni' }, // green
-      'ccpa_1900': { 'color': '#006000', 'outline': 'white', 'source': 'alumni' }, // green
-      'ccpa_staff': { 'color': '#006000', 'outline': 'white', 'source': 'alumni' }, // green
+      'ccpa_2022': { 'color': '#006000', 'outline': 'gold', 'source': 'alumni' }, // green
+      'ccpa_1900': { 'color': '#006000', 'outline': 'gold', 'source': 'alumni' }, // green
+      'ccpa_staff': { 'color': 'gold', 'outline': '#006000', 'source': 'alumni' }, // green
       'bart_routes': { 'color': '', 'outline': '', 'source': 'map_style' },
       'bart_stops': { 'color': '', 'outline': '', 'source': 'map_style' },
       'caltrain_routes': { 'color': '', 'outline': '', 'source': 'map_style' },
@@ -450,7 +450,7 @@
                 'paint': {
                   'circle-color': categories['ccpa_2022'].color,
                   'circle-stroke-color': categories['ccpa_2022'].outline,
-                  'circle-stroke-width': 1,
+                  'circle-stroke-width': 2,
                   'circle-radius': 7,
                 },
                 'filter': ['all',
@@ -464,7 +464,7 @@
                 'paint': {
                   'circle-color': categories['ccpa_staff'].color,
                   'circle-stroke-color': categories['ccpa_staff'].outline,
-                  'circle-stroke-width': 1,
+                  'circle-stroke-width': 2,
                   'circle-radius': 7,
                 },
                 'filter': ['all',

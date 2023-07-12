@@ -54,17 +54,17 @@
             </label>
             <h4 class='txt-bold pt12 '>NCAA:</h4>
             <label class='switch-container'>
-              <input type='checkbox' name='d1' />
+              <input type='checkbox' name='ncaa_d1' />
               <div class='switch mr6'></div>
               D1
             </label>
             <label class='switch-container'>
-              <input type='checkbox' name='d2' />
+              <input type='checkbox' name='ncaa_d2' />
               <div class='switch mr6'></div>
               D2
             </label>
             <label class='switch-container'>
-              <input type='checkbox' name='d3' />
+              <input type='checkbox' name='ncaa_d3' />
               <div class='switch mr6'></div>
               D3
             </label>
@@ -118,14 +118,14 @@
               Caltrain routes
             </label>
             <label class='switch-container'>
-              <input type='checkbox' name='caltrain_stops' />
-              <div class='switch mr6'></div>
-              Caltrain stations
-            </label>
-            <label class='switch-container'>
               <input type='checkbox' name='amtrak_routes' checked />
               <div class='switch mr6'></div>
               Amtrak routes
+            </label>
+            <label class='switch-container'>
+              <input type='checkbox' name='caltrain_stops' />
+              <div class='switch mr6'></div>
+              Caltrain stations
             </label>
             <label class='switch-container'>
               <input type='checkbox' name='amtrak_stops' />
@@ -242,7 +242,6 @@
       // find a layer with a matching name:
       for (var key in categories) {
         if (key === event.target.name) {
-          console.log('found it');
           // check if checkbox is checked or unchecked
           checked = ''
           if (event.target.checked) {

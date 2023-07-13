@@ -176,7 +176,7 @@
 
     datasets = [
       { 'name': 'schools', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=411964576&single=true&output=csv' },
-      { 'name': 'alumni', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=435305116&single=true&output=csv' },
+      { 'name': 'people', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=435305116&single=true&output=csv' },
     ]
     categories =
     {
@@ -196,9 +196,9 @@
       'global': { 'color': 'pink', 'outline': 'black', 'source': 'schools' },
       'us-non-california-public': { 'color': 'teal', 'outline': 'black', 'source': 'schools' },
       'us-non-california-private': { 'color': 'orange', 'outline': 'black', 'source': 'schools' },
-      'ccpa_2022': { 'color': '#006000', 'outline': 'gold', 'source': 'alumni' }, // green
-      'ccpa_1900': { 'color': '#006000', 'outline': 'gold', 'source': 'alumni' }, // green
-      'ccpa_staff': { 'color': 'gold', 'outline': '#006000', 'source': 'alumni' }, // green
+      'ccpa_2022': { 'color': '#006000', 'outline': 'gold', 'source': 'people' }, // green
+      'ccpa_1900': { 'color': '#006000', 'outline': 'gold', 'source': 'people' }, // green
+      'ccpa_staff': { 'color': 'gold', 'outline': '#006000', 'source': 'people' }, // green
       'bart_routes': { 'color': '', 'outline': '', 'source': 'map_style' },
       'bart_stops': { 'color': '', 'outline': '', 'source': 'map_style' },
       'caltrain_routes': { 'color': '', 'outline': '', 'source': 'map_style' },
@@ -324,7 +324,7 @@
                 data: data,
               });
               // ToDo: Prevent errors caused by hoisting:
-              const alumni = map.getStyle().sources['alumni'].data.features
+              const people = map.getStyle().sources['people'].data.features
               const schools = map.getStyle().sources['schools'].data.features
 
               map.addLayer({
@@ -430,7 +430,7 @@
               map.addLayer({
                 'id': 'ccpa_1900',
                 'type': 'circle',
-                'source': 'alumni',
+                'source': 'people',
                 'paint': {
                   'circle-color': categories['ccpa_1900'].color,
                   'circle-stroke-color': categories['ccpa_1900'].outline,
@@ -444,7 +444,7 @@
               map.addLayer({
                 'id': 'ccpa_2022',
                 'type': 'circle',
-                'source': 'alumni',
+                'source': 'people',
                 'paint': {
                   'circle-color': categories['ccpa_2022'].color,
                   'circle-stroke-color': categories['ccpa_2022'].outline,
@@ -458,7 +458,7 @@
               map.addLayer({
                 'id': 'ccpa_staff',
                 'type': 'symbol',
-                'source': 'alumni',
+                'source': 'people',
                 'layout': {
                   'icon-image': 'ccpa',
                   'icon-size': .1,

@@ -91,11 +91,11 @@
               <div class='switch mr6' style="background-color: green;"></div>
               2022
             </label>
-            <!-- <label class='switch-container'>
+            <label class='switch-container'>
               <input type='checkbox' name='ccpa_1900' checked />
               <div class='switch mr6'></div>
               1900
-            </label> -->
+            </label>
             <label class='switch-container'>
               <input type='checkbox' name='ccpa_staff' checked />
               <div class='switch mr6'></div>
@@ -443,13 +443,11 @@
               });
               map.addLayer({
                 'id': 'ccpa_2022',
-                'type': 'circle',
+                'type': 'symbol',
                 'source': 'people',
-                'paint': {
-                  'circle-color': categories['ccpa_2022'].color,
-                  'circle-stroke-color': categories['ccpa_2022'].outline,
-                  'circle-stroke-width': 2,
-                  'circle-radius': 7,
+                'layout': {
+                  'icon-image': 'ccpa',
+                  'icon-size': .1,
                 },
                 'filter': ['all',
                   ['==', 'grad_year', '2022'],
@@ -462,7 +460,6 @@
                 'layout': {
                   'icon-image': 'ccpa',
                   'icon-size': .1,
-                  // 'visibility': 'none'
                 },
                 'filter': ['all',
                   ['==', 'grad_year', 'staff'],

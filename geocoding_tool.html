@@ -20,8 +20,8 @@
     <thead>
       <tr>
         <th>name</th>
-        <th>lng</th>
-        <th>lat</th>
+        <th>longitude</th>
+        <th>latitude</th>
         <th>street</th>
         <th>city</th>
         <th>state</th>
@@ -49,39 +49,29 @@
     // your strings inside the `queries` array below.
     // (If characters like apostrophes cause problems, delete them.)
     let queries = [
-      'Acadia+University++Wolfville+Nova+Scotia+Canada',
-      'Allen+University++Columbia+South+Carolina+US',
-      'Edward+Waters+University+Jacksonville+Florida+US',
-      'Morris+Brown+College++Atlanta+Georgia+US',
-      'Paul+Quinn+College++Dallas+Texas+US',
-      'Payne+Theological+Seminary++Wilberforce+Ohio+US',
-      'Shorter+College++North+Little+Rock+Arkansas+US',
-      'Wilberforce+University++Wilberforce+Ohio+US ',
-    ]
+      // 'Boston+College++Chestnut+Hill+Massachusetts+USA']
 
-    // Define the function, including the loop:
-    async function makeGeoRequest(i) {
-      const query = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${queries[i]}}.json?limit=1&access_token=pk.eyJ1IjoiZG9tbGV0IiwiYSI6ImNsanp3a24xeDAxMjMzZGxpeDY3MWZpMXkifQ.4TIVDbum8xmIdzokCod3Ww`,
-        // `${urlBase}${i}.json?limit=${limit}&types=address&country=US&fuzzyMatch=true&access_token=${token}`,
-        // `${urlBase}${i}.json?limit=${limit}&proximity=${proximity}&access_token=${token}`,
-        { method: 'GET' }
-      );
-      console.log('i made an api request')
-      const data = await query.json();
-      let name = data.features[0].text // name
-      let lng = data.features[0].center[0] // lng
-      let lat = data.features[0].center[1] // lat
-      let street = data.features[0].properties.address // street
-      let city = data.features[0].context[1].text // city
-      let state = data.features[0].context[3].text // state
-      let zip = data.features[0].context[0].text // zip
-      let country = data.features[0].context[4].text // country
-      let category = data.features[0].properties.category // category
-      let county = data.features[0].context[2].text // county
-      console.log(name + lng + lat + street + city + state + zip + country + category + county)
-      // Create HTML elements:
-      let html = `<td>${name}</td>
+      // Define the function, including the loop:
+      async function makeGeoRequest(i) {
+        const query = await fetch(
+          `https://api.mapbox.com/geocoding/v5/mapbox.places/${queries[i]}.json?limit=1&access_token=pk.eyJ1IjoiZG9tbGV0IiwiYSI6ImNsanp3a24xeDAxMjMzZGxpeDY3MWZpMXkifQ.4TIVDbum8xmIdzokCod3Ww`,
+          { method: 'GET' }
+        );
+        console.log('i made an api request')
+        const data = await query.json();
+        let name = data.features[0].text // name
+        let lng = data.features[0].center[0] // lng
+        let lat = data.features[0].center[1] // lat
+        let street = data.features[0].properties.address // street
+        let city = data.features[0].context[1].text // city
+        let state = data.features[0].context[3].text // state
+        let zip = data.features[0].context[0].text // zip
+        let country = data.features[0].context[4].text // country
+        let category = data.features[0].properties.category // category
+        let county = data.features[0].context[2].text // county
+        console.log(name + lng + lat + street + city + state + zip + country + category + county)
+        // Create HTML elements:
+        let html = `<td>${name}</td>
       <td>${lng}</td>
       <td>${lat}</td>
       <td>${street}</td>
@@ -92,12 +82,12 @@
       <td>${category}</td>
       <td>${county}</td>`
 
-      let row = document.createElement('tr'); // create a row
-      resultsTable.appendChild(row); // add it to the table
-      let rowId = 'row' + i // create a unique id
-      row.setAttribute('id', rowId) // attach the unique id
-      document.getElementById(rowId).innerHTML = html
-    }
+        let row = document.createElement('tr'); // create a row
+        resultsTable.appendChild(row); // add it to the table
+        let rowId = 'row' + i // create a unique id
+        row.setAttribute('id', rowId) // attach the unique id
+        document.getElementById(rowId).innerHTML = html
+      }
 
     // Create the loop, and call the function:
     const resultsTable = document.getElementById("results");

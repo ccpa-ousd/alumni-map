@@ -42,16 +42,11 @@
               <div class='switch mr6'></div>
               CCC
             </label>
-            <!-- <label class='switch-container'>
+            <label class='switch-container'>
               <input type='checkbox' name='hbcu' checked />
               <div class='switch mr6'></div>
               HBCU
             </label>
-            <label class='switch-container'>
-              <input type='checkbox' name='ivy' />
-              <div class='switch mr6'></div>
-              Ivy+
-            </label> -->
             <!-- <h4 class='txt-bold pt12 '>NCAA:</h4>
             <label class='switch-container'>
               <input type='checkbox' name='ncaa_d1' />
@@ -169,7 +164,7 @@
       container: 'map',
       style: 'mapbox://styles/domlet/cljxrbgx0000c01rac7og3ym6',
       center: [-122.219355, 37.783520],
-      zoom: 7,
+      zoom: 4,
       projection: 'mercator'
     });
     map.addControl(
@@ -298,9 +293,13 @@
         if (error) throw error;
         map.addImage('ccc', image);
       });
-      map.loadImage('icons/logo-hbcu-64px.png', (error, image) => {
+      map.loadImage('icons/logo-hbcu.png', (error, image) => {
         if (error) throw error;
         map.addImage('hbcu', image);
+      });
+      map.loadImage('icons/logo-ccpa.png', (error, image) => {
+        if (error) throw error;
+        map.addImage('ccpa', image);
       });
       for (let i = 0; i < datasets.length; i++) {
         $.ajax({
@@ -333,7 +332,6 @@
                 'type': 'symbol',
                 'source': 'schools',
                 'layout': {
-                  // 'icon-allow-overlap': 'true',
                   'icon-image': 'uc',
                   'icon-size': 1,
                 },
@@ -369,7 +367,7 @@
                 'source': 'schools',
                 'layout': {
                   'icon-image': 'hbcu',
-                  'icon-size': .45,
+                  'icon-size': .35,
                 },
                 'filter': ['all', ['==', 'hbcu', 'TRUE']],
               });
@@ -429,20 +427,20 @@
                   ['!=', 'pub_priv', 'Private'],
                 ],
               });
-              // map.addLayer({
-              //   'id': 'ccpa_1900',
-              //   'type': 'circle',
-              //   'source': 'alumni',
-              //   'paint': {
-              //     'circle-color': categories['ccpa_1900'].color,
-              //     'circle-stroke-color': categories['ccpa_1900'].outline,
-              //     'circle-stroke-width': 1,
-              //     'circle-radius': 7,
-              //   },
-              //   'filter': ['all',
-              //     ['==', 'grad_year', '1900'],
-              //   ],
-              // });
+              map.addLayer({
+                'id': 'ccpa_1900',
+                'type': 'circle',
+                'source': 'alumni',
+                'paint': {
+                  'circle-color': categories['ccpa_1900'].color,
+                  'circle-stroke-color': categories['ccpa_1900'].outline,
+                  'circle-stroke-width': 1,
+                  'circle-radius': 7,
+                },
+                'filter': ['all',
+                  ['==', 'grad_year', '1900'],
+                ],
+              });
               map.addLayer({
                 'id': 'ccpa_2022',
                 'type': 'circle',
@@ -459,13 +457,12 @@
               });
               map.addLayer({
                 'id': 'ccpa_staff',
-                'type': 'circle',
+                'type': 'symbol',
                 'source': 'alumni',
-                'paint': {
-                  'circle-color': categories['ccpa_staff'].color,
-                  'circle-stroke-color': categories['ccpa_staff'].outline,
-                  'circle-stroke-width': 2,
-                  'circle-radius': 7,
+                'layout': {
+                  'icon-image': 'ccpa',
+                  'icon-size': .1,
+                  // 'visibility': 'none'
                 },
                 'filter': ['all',
                   ['==', 'grad_year', 'staff'],

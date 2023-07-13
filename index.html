@@ -47,22 +47,21 @@
               <div class='switch mr6'></div>
               HBCU
             </label>
-            <!-- <h4 class='txt-bold pt12 '>NCAA:</h4>
-            <label class='switch-container'>
-              <input type='checkbox' name='ncaa_d1' />
-              <div class='switch mr6'></div>
-              D1
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' name='ncaa_d2' />
-              <div class='switch mr6'></div>
-              D2
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' name='ncaa_d3' />
-              <div class='switch mr6'></div>
-              D3
-            </label> -->
+            <h4 class='txt-bold pt12 '>NCAA:</h4>
+            <div class='toggle-group mr18'>
+              <label class='toggle-container'>
+                <input name='ncaa_d1' type='checkbox' />
+                <div class='toggle'>D1</div>
+              </label>
+              <label class='toggle-container'>
+                <input name='ncaa_d2' type='checkbox' />
+                <div class='toggle'>D2</div>
+              </label>
+              <label class='toggle-container'>
+                <input name='ncaa_d3' type='checkbox' />
+                <div class='toggle'>D3</div>
+              </label>
+            </div>
             <h4 class='txt-bold  pt12'>School locations:</h4>
             <label class='switch-container'>
               <input type='checkbox' name='california' checked />
@@ -87,7 +86,7 @@
             </label>
             <h4 class='txt-bold pt12 '>CCPA Alumni:</h4>
             <label class='switch-container'>
-              <input type='checkbox' name='ccpa_2022a' checked />
+              <input type='checkbox' name='ccpa_2022' checked />
               <div class='switch mr6' style="background-color: green;"></div>
               2022
             </label>
@@ -180,25 +179,26 @@
     ]
     categories =
     {
+      // School groups
       'uc': { 'color': '#002A56', 'outline': 'black', 'source': 'schools' },
       'csu': { 'color': '#E61A37', 'outline': 'black', 'source': 'schools' },
       'ccc': { 'color': 'blue', 'outline': 'black', 'source': 'schools' },
       'hbcu': { 'color': 'aqua', 'outline': 'black', 'source': 'schools' },
-      'ivy': { 'color': 'aqua', 'outline': 'black', 'source': 'schools' },
-      'ncaa_d1': { 'color': 'lime', 'outline': 'black', 'source': 'schools' },
-      'ncaa_d2': { 'color': 'lime', 'outline': 'black', 'source': 'schools' },
-      'ncaa_d3': { 'color': 'lime', 'outline': 'black', 'source': 'schools' },
-      'usa': { 'color': 'magenta', 'outline': 'black', 'source': 'schools' },
-      'mexico': { 'color': 'cyan', 'outline': 'black', 'source': 'schools' },
-      // north america
-      'california': { 'color': 'lavender', 'outline': 'black', 'source': 'schools' },
-      'canada': { 'color': 'maroon', 'outline': 'white', 'source': 'schools' },
-      'global': { 'color': 'pink', 'outline': 'black', 'source': 'schools' },
-      'us-non-california-public': { 'color': 'teal', 'outline': 'black', 'source': 'schools' },
-      'us-non-california-private': { 'color': 'orange', 'outline': 'black', 'source': 'schools' },
-      'ccpa_2022a': { 'color': '#006000', 'outline': 'gold', 'source': 'people' }, // green
+      'ncaa_d1': { 'color': '#0097D8', 'outline': 'white', 'source': 'schools' },
+      'ncaa_d2': { 'color': '#0097D8', 'outline': 'white', 'source': 'schools' },
+      'ncaa_d3': { 'color': '#0097D8', 'outline': 'white', 'source': 'schools' },
+      // locations
+      'us': { 'color': '#9B59B6', 'outline': 'black', 'source': 'schools' },
+      'california': { 'color': '#E67E22', 'outline': 'black', 'source': 'schools' },
+      'mexico': { 'color': '#2ECC71', 'outline': 'black', 'source': 'schools' },
+      'canada': { 'color': '#E65722', 'outline': 'black', 'source': 'schools' },
+      'global': { 'color': '#F2CA27', 'outline': 'black', 'source': 'schools' },
+      // 'us-non-california-public': { 'color': 'teal', 'outline': 'black', 'source': 'schools' },
+      // 'us-non-california-private': { 'color': 'orange', 'outline': 'black', 'source': 'schools' },
+      'ccpa_2022': { 'color': '#006000', 'outline': 'gold', 'source': 'people' }, // green
       'ccpa_1900': { 'color': '#006000', 'outline': 'gold', 'source': 'people' }, // green
       'ccpa_staff': { 'color': 'gold', 'outline': '#006000', 'source': 'people' }, // green
+      // Transit
       'bart_routes': { 'color': '', 'outline': '', 'source': 'map_style' },
       'bart_stops': { 'color': '', 'outline': '', 'source': 'map_style' },
       'caltrain_routes': { 'color': '', 'outline': '', 'source': 'map_style' },
@@ -260,6 +260,7 @@
           }
         } else {
           console.log('there is no layer with that name')
+
         }
       }
     });
@@ -328,6 +329,16 @@
               const schools = map.getStyle().sources['schools'].data.features
 
               map.addLayer({
+                'id': 'ccc',
+                'type': 'symbol',
+                'source': 'schools',
+                'layout': {
+                  'icon-image': 'ccc',
+                  'icon-size': .16,
+                },
+                'filter': ['all', ['==', 'system_acronym', 'CCC']],
+              });
+              map.addLayer({
                 'id': 'uc',
                 'type': 'symbol',
                 'source': 'schools',
@@ -352,16 +363,6 @@
                 'filter': ['all', ['==', 'system_acronym', 'CSU']],
               });
               map.addLayer({
-                'id': 'ccc',
-                'type': 'symbol',
-                'source': 'schools',
-                'layout': {
-                  'icon-image': 'ccc',
-                  'icon-size': .17,
-                },
-                'filter': ['all', ['==', 'system_acronym', 'CCC']],
-              });
-              map.addLayer({
                 'id': 'hbcu',
                 'type': 'symbol',
                 'source': 'schools',
@@ -384,6 +385,74 @@
                 'filter': ['all', ['==', 'country', 'MX']],
               });
               map.addLayer({
+                'id': 'california',
+                'type': 'circle',
+                'source': 'schools',
+                'paint': {
+                  'circle-color': categories['california'].color,
+                  'circle-stroke-color': categories['california'].outline,
+                  'circle-stroke-width': 1,
+                  'circle-radius': 7,
+                },
+                'filter': ['all',
+                  ['==', 'state', 'California'],
+                  ['!=', 'system_acronym', 'UC'],
+                  ['!=', 'system_acronym', 'CSU'],
+                  ['!=', 'system_acronym', 'CCC']
+                ],
+              });
+              map.addLayer({
+                'id': 'ncaa_d1',
+                'type': 'circle',
+                'source': 'schools',
+                'paint': {
+                  'circle-color': categories['ncaa_d1'].color,
+                  'circle-stroke-color': categories['ncaa_d1'].outline,
+                  'circle-stroke-width': 1,
+                  'circle-radius': 7,
+                },
+                'filter': ['all', ['==', 'ncaa_div', 'D1'],],
+              });
+              map.addLayer({
+                'id': 'ncaa_d2',
+                'type': 'circle',
+                'source': 'schools',
+                'paint': {
+                  'circle-color': categories['ncaa_d2'].color,
+                  'circle-stroke-color': categories['ncaa_d2'].outline,
+                  'circle-stroke-width': 1,
+                  'circle-radius': 7,
+                },
+                'filter': ['all', ['==', 'ncaa_div', 'D2'],],
+              });
+              map.addLayer({
+                'id': 'ncaa_d3',
+                'type': 'circle',
+                'source': 'schools',
+                'paint': {
+                  'circle-color': categories['ncaa_d3'].color,
+                  'circle-stroke-color': categories['ncaa_d3'].outline,
+                  'circle-stroke-width': 1,
+                  'circle-radius': 7,
+                },
+                'filter': ['all', ['==', 'ncaa_div', 'D3'],],
+              });
+              map.addLayer({
+                'id': 'us',
+                'type': 'circle',
+                'source': 'schools',
+                'paint': {
+                  'circle-color': categories['us'].color,
+                  'circle-stroke-color': categories['us'].outline,
+                  'circle-stroke-width': 1,
+                  'circle-radius': 7,
+                },
+                'filter': ['all',
+                  ['==', 'country', 'US'],
+                  ['!=', 'state', 'California'],
+                ],
+              });
+              map.addLayer({
                 'id': 'canada',
                 'type': 'circle',
                 'source': 'schools',
@@ -394,6 +463,22 @@
                   'circle-radius': 7,
                 },
                 'filter': ['all', ['==', 'country', 'CA']],
+              });
+              map.addLayer({
+                'id': 'global',
+                'type': 'circle',
+                'source': 'schools',
+                'paint': {
+                  'circle-color': categories['global'].color,
+                  'circle-stroke-color': categories['global'].outline,
+                  'circle-stroke-width': 1,
+                  'circle-radius': 7,
+                },
+                'filter': ['all',
+                  ['!=', 'country', 'US'],
+                  ['!=', 'country', 'MX'],
+                  ['!=', 'country', 'CA'],
+                ],
               });
               map.addLayer({
                 'id': 'us-non-california-public',
@@ -429,20 +514,18 @@
               });
               map.addLayer({
                 'id': 'ccpa_1900',
-                'type': 'circle',
+                'type': 'symbol',
                 'source': 'people',
-                'paint': {
-                  'circle-color': categories['ccpa_1900'].color,
-                  'circle-stroke-color': categories['ccpa_1900'].outline,
-                  'circle-stroke-width': 1,
-                  'circle-radius': 7,
+                'layout': {
+                  'icon-image': 'ccpa',
+                  'icon-size': .1,
                 },
                 'filter': ['all',
                   ['==', 'grad_year', '1900'],
                 ],
               });
               map.addLayer({
-                'id': 'ccpa_2022aa',
+                'id': 'ccpa_2022',
                 'type': 'symbol',
                 'source': 'people',
                 'layout': {

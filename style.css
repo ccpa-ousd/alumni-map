@@ -1,10 +1,8 @@
 body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%;}
 
-
 #menu {
   background: rgb(90, 90, 90, 0.5)
-
 }
 .container {
   background: rgba(0, 0, 0, 0.75);
@@ -12,9 +10,17 @@ body { margin: 0; padding: 0; }
   position:relative;
   z-index: 1
 }
+/* Assembly hacks */
 .rounder {
   border-radius: .7em;
 }
+.toggle {
+  border: 1px solid gray;
+  color: #000;
+  margin: 0 .1em 0 0 ; 
+  padding: .2em .6em;
+}
+
 .mapboxgl-popup-content {
   border: 1px solid gray;
 }
@@ -24,7 +30,6 @@ label {
   clear: both;
   padding: .2em;
 }
-
 h4 {
   clear: both;
   display: block;

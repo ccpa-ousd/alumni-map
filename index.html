@@ -87,7 +87,7 @@
             </label>
             <h4 class='txt-bold pt12 '>CCPA Alumni:</h4>
             <label class='switch-container'>
-              <input type='checkbox' name='ccpa_2022' checked />
+              <input type='checkbox' name='ccpa_2022a' checked />
               <div class='switch mr6' style="background-color: green;"></div>
               2022
             </label>
@@ -192,11 +192,11 @@
       'mexico': { 'color': 'cyan', 'outline': 'black', 'source': 'schools' },
       // north america
       'california': { 'color': 'lavender', 'outline': 'black', 'source': 'schools' },
-      'canada': { 'color': 'maroon', 'outline': 'black', 'source': 'schools' },
+      'canada': { 'color': 'maroon', 'outline': 'white', 'source': 'schools' },
       'global': { 'color': 'pink', 'outline': 'black', 'source': 'schools' },
       'us-non-california-public': { 'color': 'teal', 'outline': 'black', 'source': 'schools' },
       'us-non-california-private': { 'color': 'orange', 'outline': 'black', 'source': 'schools' },
-      'ccpa_2022': { 'color': '#006000', 'outline': 'gold', 'source': 'people' }, // green
+      'ccpa_2022a': { 'color': '#006000', 'outline': 'gold', 'source': 'people' }, // green
       'ccpa_1900': { 'color': '#006000', 'outline': 'gold', 'source': 'people' }, // green
       'ccpa_staff': { 'color': 'gold', 'outline': '#006000', 'source': 'people' }, // green
       'bart_routes': { 'color': '', 'outline': '', 'source': 'map_style' },
@@ -381,7 +381,7 @@
                   'circle-stroke-width': 1,
                   'circle-radius': 7,
                 },
-                'filter': ['all', ['==', 'country', 'Mexico']],
+                'filter': ['all', ['==', 'country', 'MX']],
               });
               map.addLayer({
                 'id': 'canada',
@@ -393,7 +393,7 @@
                   'circle-stroke-width': 1,
                   'circle-radius': 7,
                 },
-                'filter': ['all', ['==', 'country', 'Canada']],
+                'filter': ['all', ['==', 'country', 'CA']],
               });
               map.addLayer({
                 'id': 'us-non-california-public',
@@ -442,7 +442,7 @@
                 ],
               });
               map.addLayer({
-                'id': 'ccpa_2022',
+                'id': 'ccpa_2022aa',
                 'type': 'symbol',
                 'source': 'people',
                 'layout': {

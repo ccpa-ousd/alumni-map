@@ -245,33 +245,25 @@
       checked = event.target.checked // true or false
       // find a layer with a matching name:
       for (var key in categories) {
-        // console.log(key)
         if (key == clickedCat) {
-          // console.log('there is a match for ' + clickedCat) // is box checked ?
-          if (event.target.checked) {
-            // if it is checked, use `setlayoutproperty` to show layer
-            // console.log(clickedCat + ' is now checked')
+          if (checked) {
             map.setLayoutProperty(clickedCat, 'visibility', 'visible');
             checked = true
           } else {
-            // else, hide the layer
-            // console.log(clickedCat + ' is now unchecked')
             map.setLayoutProperty(clickedCat, 'visibility', 'none');
             checked = false
           };
         } else {
-          // console.log('there is no layer match for ' + clickedCat)
-          if (event.target.checked) {
-            // console.log(clickedCat + ' is now checked')
-            if (clickedCat == 'north-america') {
-              map.setLayoutProperty('us', 'visibility', 'none');
-              map.setLayoutProperty('canada', 'visibility', 'none');
-              map.setLayoutProperty('mexico', 'visibility', 'none');
-            } else {
-              // console.log(clickedCat + ' is now unchecked')
+          if (clickedCat == 'north_america') {
+            console.log('north america')
+            if (checked) {
               map.setLayoutProperty('us', 'visibility', 'visible');
               map.setLayoutProperty('canada', 'visibility', 'visible');
               map.setLayoutProperty('mexico', 'visibility', 'visible');
+            } else {
+              map.setLayoutProperty('us', 'visibility', 'none');
+              map.setLayoutProperty('canada', 'visibility', 'none');
+              map.setLayoutProperty('mexico', 'visibility', 'none');
               checked = false
             };
           } else {
@@ -424,6 +416,9 @@
                 'id': 'ncaa_d1',
                 'type': 'circle',
                 'source': 'schools',
+                'layout': {
+                  'visibility': 'none'
+                },
                 'paint': {
                   'circle-color': categories['ncaa_d1'].color,
                   'circle-stroke-color': categories['ncaa_d1'].outline,
@@ -436,6 +431,9 @@
                 'id': 'ncaa_d2',
                 'type': 'circle',
                 'source': 'schools',
+                'layout': {
+                  'visibility': 'none'
+                },
                 'paint': {
                   'circle-color': categories['ncaa_d2'].color,
                   'circle-stroke-color': categories['ncaa_d2'].outline,
@@ -448,6 +446,9 @@
                 'id': 'ncaa_d3',
                 'type': 'circle',
                 'source': 'schools',
+                'layout': {
+                  'visibility': 'none'
+                },
                 'paint': {
                   'circle-color': categories['ncaa_d3'].color,
                   'circle-stroke-color': categories['ncaa_d3'].outline,
@@ -493,6 +494,9 @@
                 'id': 'global',
                 'type': 'circle',
                 'source': 'schools',
+                'layout': {
+                  'visibility': 'none'
+                },
                 'paint': {
                   'circle-color': categories['global'].color,
                   'circle-stroke-color': categories['global'].outline,

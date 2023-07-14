@@ -24,6 +24,13 @@ body { margin: 0; padding: 0; }
 .mapboxgl-popup-content {
   border: 1px solid gray;
 }
+.mapboxgl-popup-content a {
+  color: green;
+  text-decoration: underline;
+}
+.mapboxgl-popup-close-button {
+  margin-right: 0.5em;
+}
 label {
   float: left;
   display:block;

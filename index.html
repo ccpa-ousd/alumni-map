@@ -634,8 +634,8 @@
       let layer = e.features[0].layer.id
       let html = ''
       if (layer == 'ccpa_staff') {
-        let degree = e.features[0].properties.degree
         let school = e.features[0].properties.school_decision
+        let degree = e.features[0].properties.degree
         let linkedin = e.features[0].properties.linkedin
         html = `<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a><br/>
         <strong>${name}</strong><br>
@@ -643,6 +643,11 @@
         ${school}<br>
         <a href='${linkedin}'>LinkedIn</a><br>
         `
+      } else if (layer == 'bart_stops') {
+        let name = e.features[0].properties.Name
+        let desc = e.features[0].properties.Description
+        let website = "https://www.bart.gov/stations"
+        html = `<strong>BART Station: ${name}</strong><br>${desc}<br><a href='${website}' target='_blank'>Learn more</a>`
       } else {
         html = `<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a><br/>
         <strong>${name}</strong>

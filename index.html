@@ -69,7 +69,7 @@
               California
             </label>
             <label class='switch-container'>
-              <input type='checkbox' name='usa' checked />
+              <input type='checkbox' name='us' />
               <div class='switch mr6'></div>
               United States
             </label>
@@ -241,26 +241,42 @@
       map.getSource('iso').setData(data);
     }
     options.addEventListener('change', (event) => {
+      clickedCat = event.target.name
+      checked = event.target.checked // true or false
       // find a layer with a matching name:
       for (var key in categories) {
-        if (key == event.target.name) {
-          console.log('there is a match')
-          // check if checkbox is checked or unchecked
-          checked = ''
+        // console.log(key)
+        if (key == clickedCat) {
+          // console.log('there is a match for ' + clickedCat) // is box checked ?
           if (event.target.checked) {
             // if it is checked, use `setlayoutproperty` to show layer
-            console.log(event.target.name + ' is now checked')
-            map.setLayoutProperty(event.target.name, 'visibility', 'visible');
+            // console.log(clickedCat + ' is now checked')
+            map.setLayoutProperty(clickedCat, 'visibility', 'visible');
             checked = true
           } else {
             // else, hide the layer
-            console.log(event.target.name + ' is now unchecked')
-            map.setLayoutProperty(event.target.name, 'visibility', 'none');
+            // console.log(clickedCat + ' is now unchecked')
+            map.setLayoutProperty(clickedCat, 'visibility', 'none');
             checked = false
-          }
+          };
         } else {
-          console.log('there is no layer with that name')
-
+          // console.log('there is no layer match for ' + clickedCat)
+          if (event.target.checked) {
+            // console.log(clickedCat + ' is now checked')
+            if (clickedCat == 'north-america') {
+              map.setLayoutProperty('us', 'visibility', 'none');
+              map.setLayoutProperty('canada', 'visibility', 'none');
+              map.setLayoutProperty('mexico', 'visibility', 'none');
+            } else {
+              // console.log(clickedCat + ' is now unchecked')
+              map.setLayoutProperty('us', 'visibility', 'visible');
+              map.setLayoutProperty('canada', 'visibility', 'visible');
+              map.setLayoutProperty('mexico', 'visibility', 'visible');
+              checked = false
+            };
+          } else {
+            // it wasnt north america
+          }
         }
       }
     });
@@ -376,6 +392,9 @@
                 'id': 'mexico',
                 'type': 'circle',
                 'source': 'schools',
+                'layout': {
+                  'visibility': 'none'
+                },
                 'paint': {
                   'circle-color': categories['mexico'].color,
                   'circle-stroke-color': categories['mexico'].outline,
@@ -441,6 +460,9 @@
                 'id': 'us',
                 'type': 'circle',
                 'source': 'schools',
+                'layout': {
+                  'visibility': 'none'
+                },
                 'paint': {
                   'circle-color': categories['us'].color,
                   'circle-stroke-color': categories['us'].outline,
@@ -456,6 +478,9 @@
                 'id': 'canada',
                 'type': 'circle',
                 'source': 'schools',
+                'layout': {
+                  'visibility': 'none'
+                },
                 'paint': {
                   'circle-color': categories['canada'].color,
                   'circle-stroke-color': categories['canada'].outline,
@@ -480,38 +505,38 @@
                   ['!=', 'country', 'CA'],
                 ],
               });
-              map.addLayer({
-                'id': 'us-non-california-public',
-                'type': 'circle',
-                'source': 'schools',
-                'paint': {
-                  'circle-color': categories['us-non-california-public'].color,
-                  'circle-stroke-color': categories['us-non-california-public'].outline,
-                  'circle-stroke-width': 1,
-                  'circle-radius': 7,
-                },
-                'filter': ['all',
-                  ['==', 'country', 'USA'],
-                  ['!=', 'state', 'CA'],
-                  ['!=', 'pub_priv', 'Public'],
-                ],
-              });
-              map.addLayer({
-                'id': 'us-non-california-private',
-                'type': 'circle',
-                'source': 'schools',
-                'paint': {
-                  'circle-color': categories['us-non-california-private'].color,
-                  'circle-stroke-color': categories['us-non-california-private'].outline,
-                  'circle-stroke-width': 1,
-                  'circle-radius': 7,
-                },
-                'filter': ['all',
-                  ['==', 'country', 'USA'],
-                  ['!=', 'state', 'CA'],
-                  ['!=', 'pub_priv', 'Private'],
-                ],
-              });
+              // map.addLayer({
+              //   'id': 'us-non-california-public',
+              //   'type': 'circle',
+              //   'source': 'schools',
+              //   'paint': {
+              //     'circle-color': categories['us-non-california-public'].color,
+              //     'circle-stroke-color': categories['us-non-california-public'].outline,
+              //     'circle-stroke-width': 1,
+              //     'circle-radius': 7,
+              //   },
+              //   'filter': ['all',
+              //     ['==', 'country', 'USA'],
+              //     ['!=', 'state', 'CA'],
+              //     ['!=', 'pub_priv', 'Public'],
+              //   ],
+              // });
+              // map.addLayer({
+              //   'id': 'us-non-california-private',
+              //   'type': 'circle',
+              //   'source': 'schools',
+              //   'paint': {
+              //     'circle-color': categories['us-non-california-private'].color,
+              //     'circle-stroke-color': categories['us-non-california-private'].outline,
+              //     'circle-stroke-width': 1,
+              //     'circle-radius': 7,
+              //   },
+              //   'filter': ['all',
+              //     ['==', 'country', 'USA'],
+              //     ['!=', 'state', 'CA'],
+              //     ['!=', 'pub_priv', 'Private'],
+              //   ],
+              // });
               map.addLayer({
                 'id': 'ccpa_1900',
                 'type': 'symbol',

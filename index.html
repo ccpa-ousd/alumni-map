@@ -21,7 +21,7 @@
 <body>
 
   <div id="section1-wrapper" class='wrapper'>
-    <div class="container">
+    <div class="container ">
       <div class="col-xs-12 col-sm-12 col-md-12">
         <!-- map options start -->
         <div class='absolute fl my12 mx12 py12 px12 bg-gray-faint rounder border border--gray txt-s '>
@@ -163,7 +163,7 @@
       container: 'map',
       style: 'mapbox://styles/domlet/cljxrbgx0000c01rac7og3ym6',
       center: [-122.219355, 37.783520],
-      zoom: 4,
+      zoom: 8,
       projection: 'mercator'
     });
     map.addControl(
@@ -622,19 +622,37 @@
     // description HTML from its properties.
 
     map.on('click', categoryList, (e) => {
+      // popup placement
       const coordinates = e.features[0].geometry.coordinates.slice();
-      let object = JSON.stringify(e.features[0].properties)
-      let name = e.features[0].properties.name
-      let image = e.features[0].properties.image
       while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
       }
+      // popup content
+      let object = JSON.stringify(e.features[0].properties)
+      let name = e.features[0].properties.name
+      let image = e.features[0].properties.image
+      let layer = e.features[0].layer.id
+      let html = ''
+      if (layer == 'ccpa_staff') {
+        let degree = e.features[0].properties.degree
+        let school = e.features[0].properties.school_decision
+        let linkedin = e.features[0].properties.linkedin
+        html = `<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a><br/>
+        <strong>${name}</strong><br>
+        ${degree}<br>
+        ${school}<br>
+        <a href='${linkedin}'>LinkedIn</a><br>
+        `
+      } else {
+        html = `<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a><br/>
+        <strong>${name}</strong>
+        <div class='popup-info'>${object}</div>`
+      }
+      // popup, yay!
       new mapboxgl.Popup()
         .setLngLat(coordinates)
-        .setMaxWidth("400px")
-        .setHTML(`<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a><br/>
-        <strong>${name}</strong><br>
-        <div class='popup-info'>${object}</div>`)
+        .setMaxWidth("20em")
+        .setHTML(html)
         .addTo(map);
     });
 

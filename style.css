@@ -15,7 +15,7 @@ body { margin: 0; padding: 0; }
   border-radius: .7em;
 }
 .toggle {
-  border: 1px solid gray;
+  border: 1px solid silver;
   color: #000;
   margin: 0 .1em 0 0 ; 
   padding: .2em .6em;

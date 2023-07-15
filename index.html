@@ -166,13 +166,6 @@
       zoom: 8,
       projection: 'mercator'
     });
-    map.addControl(
-      new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl
-      })
-    );
-
     datasets = [
       { 'name': 'schools', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=1593214570&single=true&output=csv' },
       { 'name': 'people', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=435305116&single=true&output=csv' },
@@ -335,6 +328,32 @@
               // ToDo: Prevent errors caused by hoisting:
               const people = map.getStyle().sources['people'].data.features
               const schools = map.getStyle().sources['schools'].data.features
+              console.log(people)
+
+              function forwardGeocoder(query) {
+                const matchingFeatures = [];
+                for (const feature of people) {
+                  if (
+                    feature.properties.name
+                      .toLowerCase()
+                      .includes(query.toLowerCase())
+                  ) {
+                    feature['place_name'] = `🦁 ${feature.properties.name}`;
+                    feature['center'] = feature.geometry.coordinates;
+                    // feature['place_type'] = ['park'];
+                    matchingFeatures.push(feature);
+                  }
+                }
+                return matchingFeatures;
+              }
+              map.addControl(
+                new MapboxGeocoder({
+                  accessToken: mapboxgl.accessToken,
+                  localGeocoder: forwardGeocoder,
+                  // marker: true,
+                  mapboxgl: mapboxgl
+                })
+              );
 
               map.addLayer({
                 'id': 'ccc',

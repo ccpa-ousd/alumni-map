@@ -21,11 +21,17 @@ body { margin: 0; padding: 0; }
   padding: .2em .6em;
 }
 
-.mapboxgl-popup-content {
+.mapboxgl-popup-content p {
+  padding-top: 0.1em;
+}
+  .mapboxgl-popup-content h1 {
+    font-weight: bold;
+}
+  .mapboxgl-popup-content {
   border: 1px solid gray;
 }
 .mapboxgl-popup-content a {
-  color: green;
+  color: #213268;
   text-decoration: underline;
 }
 .mapboxgl-popup-close-button {

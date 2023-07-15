@@ -21,16 +21,22 @@ For people and school map markers, you can edit the data in Google Sheets to mod
 
 ### Reminders
 
-- **Data privacy:** Get permission from students (or parents/guardians) before publishing student data (like photos or names) on the Internet. 
+- **Data privacy:** Get permission from students (or parents/guardians) before publishing student data (like photos or names) on the Internet.
 - **Identity affirmation:** Remember to use students' preferred names (and pronouns where applicable) as a practice of identity affirmation.
+
+### Add a new class
+
+1. Download the "Decision Day" slide deck as a
 
 ## Data sources
 
 ### Alumni
+
 Alumni data comes from student slides submitted for Decision Day at CCPA.
 
 ### Staff
-Staff data is scraped from 
+
+Staff data is scraped from
 
 ### Transit layers
 

@@ -174,7 +174,7 @@
     );
 
     datasets = [
-      { 'name': 'schools', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=411964576&single=true&output=csv' },
+      { 'name': 'schools', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=1593214570&single=true&output=csv' },
       { 'name': 'people', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=435305116&single=true&output=csv' },
     ]
     categories =
@@ -615,9 +615,8 @@
       });
     });
 
-
     // When a click event occurs on a feature in
-    // the ... layer, open a popup at
+    // the ... layer, open a popup at  
     // the location of the feature, with
     // description HTML from its properties.
 
@@ -631,23 +630,62 @@
       let object = JSON.stringify(e.features[0].properties)
       let name = e.features[0].properties.name
       let image = e.features[0].properties.image
+      let pubPriv = e.features[0].properties.pub_priv
       let layer = e.features[0].layer.id
       let html = ''
-      if (layer == 'ccpa_staff') {
+      if (layer == 'uc' || layer == 'csu' || layer == 'ccc') {
+        let website = e.features[0].properties.website
+        let location = e.features[0].properties.location
+        let system_acronym = e.features[0].properties.system_acronym
+        let system_long = e.features[0].properties.system_long
+        html = `<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a>
+        <p><strong><a href='${website}'>${name}</a></strong> is a ${pubPriv} institution located in ${location}. This campus part of the ${system_long} (${system_acronym}) system.`
+      } else if (layer == 'ccpa_2022' || layer == 'ccpa_1900') {
+        let school = e.features[0].properties.school_decision
+        let year = e.features[0].properties.grad_year
+        let website = e.features[0].properties.website
+        html = `<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a>
+        <p><strong>CCPA Graduate:</strong><br>
+        ${name} (<i>Class of ${year}</i>)</p>
+        <p><strong>School choice:</strong><br>
+        <a href='${website}'>${school}</a></p>`
+      } else if (layer == 'ccpa_staff') {
         let school = e.features[0].properties.school_decision
         let degree = e.features[0].properties.degree
         let linkedin = e.features[0].properties.linkedin
-        html = `<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a><br/>
-        <strong>${name}</strong><br>
-        ${degree}<br>
-        ${school}<br>
-        <a href='${linkedin}'>LinkedIn</a><br>
-        `
+        html = `<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a>
+        <p><strong>CCPA Staff:</strong><br>
+          <a href='${linkedin}'>${name}</a></p>
+        <p><strong>School:</strong><br>
+        ${school}</p>
+        <p><strong>Degrees or certificates:</strong><br>
+        ${degree}</p>`
+      } else if (layer == 'amtrak_stops') {
+        // let name = e.features[0].properties.name
+        let stationnam = e.features[0].properties.stationnam
+        let code = e.features[0].properties.code
+        let address1 = e.features[0].properties.address1
+        let address2 = e.features[0].properties.address2
+        let city = e.features[0].properties.city
+        let STATE = e.features[0].properties.STATE
+        let stntype = e.features[0].properties.stntype
+        let statype = e.features[0].properties.statype
+        html = `<strong>Amtrak ${stntype.toLowerCase()} stop: <br>
+          <a href='https://amtrakguide.com/stations/amtrak-stations-in-california/' target='_blank'>${stationnam} (${code})</strong></a><br>
+         ${statype}<br>
+        <strong>Address:</strong> ${address1}, ${city}, ${STATE}`
+      } else if (layer == 'caltrain_stops') {
+        let name = e.features[0].properties.stop_name
+        let stop_id = e.features[0].properties.stop_id
+        let zone_id = e.features[0].properties.zone_id
+        html = `<a href='https://caltrain.com/stations-zones' target='_blank'><strong>${name} Station</strong></a><br>
+        <strong>Stop ID:</strong> ${stop_id}<br>
+        <strong>Zone:</strong> ${zone_id}`
       } else if (layer == 'bart_stops') {
         let name = e.features[0].properties.Name
         let desc = e.features[0].properties.Description
-        let website = "https://www.bart.gov/stations"
-        html = `<strong>BART Station: ${name}</strong><br>${desc}<br><a href='${website}' target='_blank'>Learn more</a>`
+        let website = "https://bart.gov/stations"
+        html = `<strong><a href='${website}' target='_blank'>${name} BART Station</a></strong><br>${desc}`
       } else {
         html = `<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a><br/>
         <strong>${name}</strong>

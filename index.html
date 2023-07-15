@@ -275,8 +275,6 @@
         minutes = event.target[event.target.selectedIndex].value;
         console.log('else - changed the duration')
       }
-      console.log(this.name)
-      console.log(this.value)
       getIso();
     });
     // isochrone end 
@@ -325,10 +323,8 @@
                 type: 'geojson',
                 data: data,
               });
-              // ToDo: Prevent errors caused by hoisting:
               const people = map.getStyle().sources['people'].data.features
               const schools = map.getStyle().sources['schools'].data.features
-              console.log(people)
 
               function forwardGeocoder(query) {
                 const matchingFeatures = [];
@@ -717,10 +713,10 @@
         .addTo(map);
     });
 
-    map.on('mouseenter', 'clusters', () => {
+    map.on('mouseenter', categoryList, () => {
       map.getCanvas().style.cursor = 'pointer';
     });
-    map.on('mouseleave', 'clusters', () => {
+    map.on('mouseleave', categoryList, () => {
       map.getCanvas().style.cursor = '';
     });
 

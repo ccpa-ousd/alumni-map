@@ -662,7 +662,7 @@
         <p><strong>CCPA Graduate:</strong><br>
         ${name} (<i>Class of ${year}</i>)</p>
         <p><strong>School choice:</strong><br>
-        <a href='${website}'>${school}</a></p>`
+        <a href='${website}' target='_blank'>${school}</a></p>`
       } else if (layer == 'ccpa_staff') {
         let school = e.features[0].properties.school_decision
         let degree = e.features[0].properties.degree
@@ -674,7 +674,7 @@
           <a href='${profile_url}'>${name}</a></strong><br>
           <em> CCPA ${ccpa_role}</em></p>
         <p><strong>School:</strong><br>
-          <a href='${website}'>${school}</a></p>
+          <a href='${website}' target='_blank'>${school}</a></p>
         <p><strong>Degree or Credential:</strong><br>
         ${degree}</p>`
       } else if (layer == 'amtrak_stops') {

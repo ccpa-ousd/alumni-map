@@ -666,13 +666,15 @@
       } else if (layer == 'ccpa_staff') {
         let school = e.features[0].properties.school_decision
         let degree = e.features[0].properties.degree
-        let linkedin = e.features[0].properties.linkedin
+        let profile_url = e.features[0].properties.profile_url
+        let ccpa_role = e.features[0].properties.ccpa_role
         html = `<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a>
-        <p><strong>CCPA Staff:</strong><br>
-          <a href='${linkedin}'>${name}</a></p>
+        <p><strong>
+          <a href='${profile_url}'>${name}</a></strong><br>
+          <em> CCPA ${ccpa_role}</em></p>
         <p><strong>School:</strong><br>
         ${school}</p>
-        <p><strong>Degrees or certificates:</strong><br>
+        <p><strong>Degree or Credential:</strong><br>
         ${degree}</p>`
       } else if (layer == 'amtrak_stops') {
         // let name = e.features[0].properties.name

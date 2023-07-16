@@ -47,43 +47,6 @@
               <div class='switch mr6'></div>
               HBCU
             </label>
-            <h4 class='txt-bold pt12 '>NCAA:</h4>
-            <div class='toggle-group mr18'>
-              <label class='toggle-container'>
-                <input name='ncaa_d1' type='checkbox' />
-                <div class='toggle'>D1</div>
-              </label>
-              <label class='toggle-container'>
-                <input name='ncaa_d2' type='checkbox' />
-                <div class='toggle'>D2</div>
-              </label>
-              <label class='toggle-container'>
-                <input name='ncaa_d3' type='checkbox' />
-                <div class='toggle'>D3</div>
-              </label>
-            </div>
-            <h4 class='txt-bold  pt12'>School locations:</h4>
-            <label class='switch-container'>
-              <input type='checkbox' name='california' checked />
-              <div class='switch mr6'></div>
-              California
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' name='us' />
-              <div class='switch mr6'></div>
-              United States
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' name='north_america' />
-              <div class='switch mr6'></div>
-              North America
-            </label>
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' name='global' />
-              <div class='switch mr6'></div>
-              Global
-            </label>
             <h4 class='txt-bold pt12 '>CCPA Alumni:</h4>
             <label class='switch-container'>
               <input type='checkbox' name='ccpa_2022' checked />
@@ -100,6 +63,34 @@
               <div class='switch mr6'></div>
               CCPA Staff
             </label>
+            <h4 class='txt-bold pt12 '>NCAA:</h4>
+            <div class='toggle-group mr18'>
+              <label class='toggle-container'>
+                <input name='ncaa_d1' type='checkbox' />
+                <div class='toggle'>D1</div>
+              </label>
+              <label class='toggle-container'>
+                <input name='ncaa_d2' type='checkbox' />
+                <div class='toggle'>D2</div>
+              </label>
+              <label class='toggle-container'>
+                <input name='ncaa_d3' type='checkbox' />
+                <div class='toggle'>D3</div>
+              </label>
+            </div>
+            <h4 class='txt-bold  pt12'>School locations:</h4>
+            <div class='toggle-group align-center'>
+              <div class='select-container'>
+                <select class='select select--s'>
+                  <option name='profile' value='walking' selected>California</option>
+                  <option name='profile' value='cycling'>United States</option>
+                  <option name='profile' value='driving'>North America</option>
+                  <option name='profile' value='driving'>Global</option>
+                </select>
+                <div class='select-arrow'></div>
+              </div>
+            </div>
+
             <h4 class='txt-bold pt12 '>Rail transit:</h4>
             <label class='switch-container'>
               <input type='checkbox' name='bart_stops' checked />
@@ -643,12 +634,12 @@
       // popup content
       let object = JSON.stringify(e.features[0].properties)
       let name = e.features[0].properties.name
+      let website = e.features[0].properties.website
       let image = e.features[0].properties.image
       let pubPriv = e.features[0].properties.pub_priv
       let layer = e.features[0].layer.id
       let html = ''
       if (layer == 'uc' || layer == 'csu' || layer == 'ccc') {
-        let website = e.features[0].properties.website
         let location = e.features[0].properties.location
         let system_acronym = e.features[0].properties.system_acronym
         let system_long = e.features[0].properties.system_long
@@ -657,7 +648,6 @@
       } else if (layer == 'ccpa_2022' || layer == 'ccpa_1900') {
         let school = e.features[0].properties.school_decision
         let year = e.features[0].properties.grad_year
-        let website = e.features[0].properties.website
         html = `<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a>
         <p><strong>CCPA Graduate:</strong><br>
         ${name} (<i>Class of ${year}</i>)</p>
@@ -666,7 +656,6 @@
       } else if (layer == 'ccpa_staff') {
         let school = e.features[0].properties.school_decision
         let degree = e.features[0].properties.degree
-        let website = e.features[0].properties.website
         let profile_url = e.features[0].properties.profile_url
         let ccpa_role = e.features[0].properties.ccpa_role
         html = `<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a>
@@ -677,6 +666,41 @@
           <a href='${website}' target='_blank'>${school}</a></p>
         <p><strong>Degree or Credential:</strong><br>
         ${degree}</p>`
+      } else if (layer == 'hbcu') {
+        let location = e.features[0].properties.location
+        let pub_priv = e.features[0].properties.pub_priv
+        let ncaa_div = e.features[0].properties.ncaa_div
+        let ncaa_conf = e.features[0].properties.ncaa_conf
+        let comment = e.features[0].properties.comment
+        let regionally_accredited = e.features[0].properties.regionally_accredited
+        let year_founded = e.features[0].properties.year_founded
+        if (regionally_accredited == "No") {
+          regionally_accredited = 'non-regionally accredited'
+        } else {
+          regionally_accredited = 'regionally accredited'
+        }
+        if (ncaa_div != '') {
+          if (ncaa_div == 'D1') {
+            ncaa_div = 'Division I'
+          } else if (ncaa_div == 'D2') {
+            ncaa_div = 'Division II'
+          } else {
+            ncaa_div = 'Division III'
+          }
+          ncaa_div_text = `<p><strong>NCAA:</strong> ${ncaa_div} <br>
+            <a href='https://en.wikipedia.org/wiki/List_of_NCAA_conferences' target='_blank'>${ncaa_conf}</a></p>`
+        } else {
+          ncaa_div_text = ''
+        }
+        if (comment != '') {
+          comment_html = `<p><em>${comment}</em></p>`
+        } else {
+          comment_html = ''
+        }
+        html = `<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a>
+        <p><strong><a href='${website}'>${name}</a></strong> is a ${pubPriv.toLowerCase()} ${regionally_accredited} HBCU school.</p>
+        <p><strong>Founded:</strong> ${year_founded}</p>
+        <p><strong>Location:</strong> ${location}</p>${ncaa_div_text}${comment_html}`
       } else if (layer == 'amtrak_stops') {
         // let name = e.features[0].properties.name
         let stationnam = e.features[0].properties.stationnam
@@ -687,7 +711,7 @@
         let STATE = e.features[0].properties.STATE
         let stntype = e.features[0].properties.stntype
         let statype = e.features[0].properties.statype
-        html = `<strong>Amtrak ${stntype.toLowerCase()} stop: <br>
+        html = `< strong > Amtrak ${stntype.toLowerCase()} stop: <br>
           <a href='https://amtrakguide.com/stations/amtrak-stations-in-california/' target='_blank'>${stationnam} (${code})</strong></a><br>
          ${statype}<br>
         <strong>Address:</strong> ${address1}, ${city}, ${STATE}`

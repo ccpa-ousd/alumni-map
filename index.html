@@ -228,45 +228,44 @@
     options.addEventListener('change', (event) => {
       clickedCat = event.target.name
       checked = event.target.checked // true or false
-      console.log(clickedCat)
       // find a layer with a matching name:
-      for (var key in categories) {
-        if (key == clickedCat) {
-          if (checked) {
-            map.setLayoutProperty(clickedCat, 'visibility', 'visible');
-            checked = true
-          } else {
-            map.setLayoutProperty(clickedCat, 'visibility', 'none');
-            checked = false
-          };
+      if (clickedCat in categories) {
+        if (checked) {
+          map.setLayoutProperty(clickedCat, 'visibility', 'visible');
+          checked = true
+          console.log(clickedCat + ' is ' + checked)
         } else {
-          if (event.target[event.target.selectedIndex].getAttribute('name') === 'location') {
-            newLocation = event.target[event.target.selectedIndex].value;
-            console.log('if - changed the newLocation to ' + newLocation)
-            if (newLocation === 'california') {
-              map.setLayoutProperty('global', 'visibility', 'none');
-              map.setLayoutProperty('canada', 'visibility', 'none');
-              map.setLayoutProperty('mexico', 'visibility', 'none');
-              map.setLayoutProperty('us', 'visibility', 'none');
-              map.setLayoutProperty(newLocation, 'visibility', 'visible');
-            } else if (newLocation === 'us') {
-              map.setLayoutProperty('global', 'visibility', 'none');
-              map.setLayoutProperty('canada', 'visibility', 'none');
-              map.setLayoutProperty('mexico', 'visibility', 'none');
-              map.setLayoutProperty(newLocation, 'visibility', 'visible');
-            } else if (newLocation === 'north_america') {
-              map.setLayoutProperty('global', 'visibility', 'none');
-              map.setLayoutProperty('canada', 'visibility', 'visible');
-              map.setLayoutProperty('mexico', 'visibility', 'visible');
-              map.setLayoutProperty('us', 'visibility', 'visible');
-            } else if (newLocation === 'global') {
-              map.setLayoutProperty('canada', 'visibility', 'visible');
-              map.setLayoutProperty('mexico', 'visibility', 'visible');
-              map.setLayoutProperty('us', 'visibility', 'visible');
-              map.setLayoutProperty('global', 'visibility', 'visible');
-            }
-          };
-        }
+          map.setLayoutProperty(clickedCat, 'visibility', 'none');
+          checked = false
+          console.log(clickedCat + ' is ' + checked)
+        };
+      } else {
+        if (event.target[event.target.selectedIndex].getAttribute('name') === 'location') {
+          newLocation = event.target[event.target.selectedIndex].value;
+          console.log('if - changed the newLocation to ' + newLocation)
+          if (newLocation === 'california') {
+            map.setLayoutProperty('global', 'visibility', 'none');
+            map.setLayoutProperty('canada', 'visibility', 'none');
+            map.setLayoutProperty('mexico', 'visibility', 'none');
+            map.setLayoutProperty('us', 'visibility', 'none');
+            map.setLayoutProperty(newLocation, 'visibility', 'visible');
+          } else if (newLocation === 'us') {
+            map.setLayoutProperty('global', 'visibility', 'none');
+            map.setLayoutProperty('canada', 'visibility', 'none');
+            map.setLayoutProperty('mexico', 'visibility', 'none');
+            map.setLayoutProperty(newLocation, 'visibility', 'visible');
+          } else if (newLocation === 'north_america') {
+            map.setLayoutProperty('global', 'visibility', 'none');
+            map.setLayoutProperty('canada', 'visibility', 'visible');
+            map.setLayoutProperty('mexico', 'visibility', 'visible');
+            map.setLayoutProperty('us', 'visibility', 'visible');
+          } else if (newLocation === 'global') {
+            map.setLayoutProperty('canada', 'visibility', 'visible');
+            map.setLayoutProperty('mexico', 'visibility', 'visible');
+            map.setLayoutProperty('us', 'visibility', 'visible');
+            map.setLayoutProperty('global', 'visibility', 'visible');
+          }
+        };
       }
     });
 
@@ -725,7 +724,7 @@
         let STATE = e.features[0].properties.STATE
         let stntype = e.features[0].properties.stntype
         let statype = e.features[0].properties.statype
-        html = `< strong > Amtrak ${stntype.toLowerCase()} stop: <br>
+        html = `<strong> Amtrak ${stntype.toLowerCase()} stop: <br>
           <a href='https://amtrakguide.com/stations/amtrak-stations-in-california/' target='_blank'>${stationnam} (${code})</strong></a><br>
          ${statype}<br>
         <strong>Address:</strong> ${address1}, ${city}, ${STATE}`

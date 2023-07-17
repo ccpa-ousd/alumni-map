@@ -82,10 +82,10 @@
             <div class='toggle-group align-center'>
               <div class='select-container'>
                 <select class='select select--s'>
-                  <option name='profile' value='walking' selected>California</option>
-                  <option name='profile' value='cycling'>United States</option>
-                  <option name='profile' value='driving'>North America</option>
-                  <option name='profile' value='driving'>Global</option>
+                  <option name='location' value='california' selected>California</option>
+                  <option name='location' value='us'>United States</option>
+                  <option name='location' value='north_america'>North America</option>
+                  <option name='location' value='global'>Global</option>
                 </select>
                 <div class='select-arrow'></div>
               </div>
@@ -227,6 +227,7 @@
     options.addEventListener('change', (event) => {
       clickedCat = event.target.name
       checked = event.target.checked // true or false
+      console.log(clickedCat)
       // find a layer with a matching name:
       for (var key in categories) {
         if (key == clickedCat) {
@@ -238,17 +239,23 @@
             checked = false
           };
         } else {
-          if (clickedCat == 'north_america') {
+          // if (event.target[event.target.selectedIndex].getAttribute('name') === 'location') {
+          //   location = event.target[event.target.selectedIndex].value;
+          //   console.log('if - changed the location to ' + location)
+          // };
+
+          if (location == 'north_america') {
             console.log('north america')
-            if (checked) {
+            if (selected) {
               map.setLayoutProperty('us', 'visibility', 'visible');
               map.setLayoutProperty('canada', 'visibility', 'visible');
               map.setLayoutProperty('mexico', 'visibility', 'visible');
+              selected = true
             } else {
               map.setLayoutProperty('us', 'visibility', 'none');
               map.setLayoutProperty('canada', 'visibility', 'none');
               map.setLayoutProperty('mexico', 'visibility', 'none');
-              checked = false
+              selected = false
             };
           } else {
             // it wasnt north america
@@ -257,7 +264,8 @@
       }
     });
 
-    // When a user changes the value of profile or duration by clicking a button, change the parameter's value and make the API query again
+    // When a user changes the value of profile or duration by clicking a button, 
+    // change the parameter's value and make the API query again
     params.addEventListener('change', (event) => {
       if (event.target[event.target.selectedIndex].getAttribute('name') === 'profile') {
         profile = event.target[event.target.selectedIndex].value;

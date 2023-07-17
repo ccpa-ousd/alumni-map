@@ -239,27 +239,48 @@
             checked = false
           };
         } else {
-          // if (event.target[event.target.selectedIndex].getAttribute('name') === 'location') {
-          //   location = event.target[event.target.selectedIndex].value;
-          //   console.log('if - changed the location to ' + location)
-          // };
-
-          if (location == 'north_america') {
-            console.log('north america')
-            if (selected) {
-              map.setLayoutProperty('us', 'visibility', 'visible');
-              map.setLayoutProperty('canada', 'visibility', 'visible');
-              map.setLayoutProperty('mexico', 'visibility', 'visible');
-              selected = true
-            } else {
-              map.setLayoutProperty('us', 'visibility', 'none');
+          if (event.target[event.target.selectedIndex].getAttribute('name') === 'location') {
+            newLocation = event.target[event.target.selectedIndex].value;
+            console.log('if - changed the newLocation to ' + newLocation)
+            if (newLocation === 'california') {
+              map.setLayoutProperty('global', 'visibility', 'none');
               map.setLayoutProperty('canada', 'visibility', 'none');
               map.setLayoutProperty('mexico', 'visibility', 'none');
-              selected = false
-            };
-          } else {
-            // it wasnt north america
-          }
+              map.setLayoutProperty('us', 'visibility', 'none');
+              map.setLayoutProperty(newLocation, 'visibility', 'visible');
+            } else if (newLocation === 'us') {
+              map.setLayoutProperty('global', 'visibility', 'none');
+              map.setLayoutProperty('canada', 'visibility', 'none');
+              map.setLayoutProperty('mexico', 'visibility', 'none');
+              map.setLayoutProperty(newLocation, 'visibility', 'visible');
+            } else if (newLocation === 'north_america') {
+              map.setLayoutProperty('global', 'visibility', 'none');
+              map.setLayoutProperty('canada', 'visibility', 'visible');
+              map.setLayoutProperty('mexico', 'visibility', 'visible');
+              map.setLayoutProperty('us', 'visibility', 'visible');
+            } else if (newLocation === 'global') {
+              map.setLayoutProperty('canada', 'visibility', 'visible');
+              map.setLayoutProperty('mexico', 'visibility', 'visible');
+              map.setLayoutProperty('us', 'visibility', 'visible');
+              map.setLayoutProperty('global', 'visibility', 'visible');
+            }
+          };
+          // if (newLocation == 'north_america') {
+          //   console.log('north america')
+          //   if (selected) {
+          //     map.setLayoutProperty('us', 'visibility', 'visible');
+          //     map.setLayoutProperty('canada', 'visibility', 'visible');
+          //     map.setLayoutProperty('mexico', 'visibility', 'visible');
+          //     selected = true
+          //   } else {
+          //     map.setLayoutProperty('us', 'visibility', 'none');
+          //     map.setLayoutProperty('canada', 'visibility', 'none');
+          //     map.setLayoutProperty('mexico', 'visibility', 'none');
+          //     selected = false
+          //   };
+          // } else {
+          //   // it wasnt north america
+          // }
         }
       }
     });

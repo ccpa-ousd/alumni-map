@@ -11,6 +11,13 @@ body { margin: 0; padding: 0; }
   z-index: 1
 }
 /* Assembly hacks */
+.select {
+  border-radius: .5em;
+  border: 1px solid gray;
+  padding: .25em 1.3em .15em 0.5em;
+  margin-right: 0.3em;
+}
+
 .rounder {
   border-radius: .7em;
 }

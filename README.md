@@ -26,7 +26,9 @@ For people and school map markers, you can edit the data in Google Sheets to mod
 
 ### Add a new class
 
-1. Download the "Decision Day" slide deck as a
+1. Contact graduates to request their permission to publish their slides and decision day information. Send this release form and save signed, returned copies in a folder ignored by Git.
+1. Open the "Decision Day" slide deck and edit slides to remove any information you don't want to publish.
+2. Download the slide deck as a PDF file. 
 
 ## Data sources
 

@@ -91,8 +91,49 @@
               </label>
             </div>
 
-
-            <h4 class='txt-bold pt12 '>Rail transit:</h4>
+            <!-- <form id='transit'>
+              <h4 class='txt-s txt-bold pt12 pb3 '>Transit:</h4>
+              <div class='toggle-group align-center'>
+                <div class='select-container'>
+                  <select class='select select--s'>
+                    <option name='transit' value='ac'>AC Transit</option>
+                    <option name='transit' value='ba'>Bay Area Rapid Transit</option>
+                    <option name='transit' value='ct'>Caltrain</option>
+                    <option name='transit' value='am'>Capitol Corridor JPA</option>
+                    <option name='transit' value='ss'>City of South San Francisco</option>
+                    <option name='transit' value='cm'>Commute.org Shuttles</option>
+                    <option name='transit' value='cc'>County Connection</option>
+                    <option name='transit' value='de'>Dumbarton Express</option>
+                    <option name='transit' value='em'>Emery Go-Round</option>
+                    <option name='transit' value='fs'>Fairfield and Suisun Transit</option>
+                    <option name='transit' value='gf'>Golden Gate Ferry</option>
+                    <option name='transit' value='gg'>Golden Gate Transit</option>
+                    <option name='transit' value='wh'>Livermore Amador VTA</option>
+                    <option name='transit' value='ma'>Marin Transit</option>
+                    <option name='transit' value='pe'>Petaluma Transit</option>
+                    <option name='transit' value='rv'>Rio Vista Delta Breeze</option>
+                    <option name='transit' value='sm'>SamTrans</option>
+                    <option name='transit' value='sb'>San Francisco Bay Ferry</option>
+                    <option name='transit' value='si'>SF International Airport</option>
+                    <option name='transit' value='sf'>San Francisco MTA</option>
+                    <option name='transit' value='sr'>Santa Rosa CityBus</option>
+                    <option name='transit' value='st'>SolTrans</option>
+                    <option name='transit' value='so'>Sonoma County Transit</option>
+                    <option name='transit' value='sa'>Sonoma Marin Area RT</option>
+                    <option name='transit' value='ms'>Stanford Marguerite Shuttle</option>
+                    <option name='transit' value='td'>Tideline Water Taxi</option>
+                    <option name='transit' value='3d'>Tri Delta Transit</option>
+                    <option name='transit' value='uc'>Union City Transit</option>
+                    <option name='transit' value='vc'>Vacaville City Coach</option>
+                    <option name='transit' value='vn'>VINE Transit</option>
+                    <option name='transit' value='sc'>VTA</option>
+                    <option name='transit' value='wc'>WestCat (Contra Costa)</option>
+                  </select>
+                  <div class='select-arrow'></div>
+                </div>
+              </div>
+            </form> -->
+            <h4 class='txt-s txt-bold pt12 pb3 '>Rail transit:</h4>
             <label class='switch-container'>
               <input type='checkbox' name='bart_stops' checked />
               <div class='switch mr6'></div>
@@ -265,8 +306,17 @@
             map.setLayoutProperty('us', 'visibility', 'visible');
             map.setLayoutProperty('global', 'visibility', 'visible');
           }
-        };
-      }
+        } else {
+          // if the event is a new transit selection...
+          if (event.target[event.target.selectedIndex].getAttribute('name') === 'transit') {
+            newTransit = event.target[event.target.selectedIndex].value;
+            console.log(newTransit)
+            // check if the transit source has been added
+            // if no, add the geojson source; iterate to create a list of agencies; and add individual layers for each agency
+            // if yes, change the selected layer to visible (and others invisible)
+          }
+        }
+      };
     });
 
     // When a user changes the value of profile or duration by clicking a button, 

@@ -61,6 +61,11 @@
             </label>
             <h4 class='txt-bold pt12 '>CCPA Alumni:</h4>
             <label class='switch-container'>
+              <input type='checkbox' name='ccpa_2023' checked />
+              <div class='switch mr6'></div>
+              2023
+            </label>
+            <label class='switch-container'>
               <input type='checkbox' name='ccpa_2022' checked />
               <div class='switch mr6'></div>
               2022
@@ -180,6 +185,7 @@
       'global': { 'color': '#F2CA27', 'outline': 'black', 'source': 'schools' },
       // 'us-non-california-public': { 'color': 'teal', 'outline': 'black', 'source': 'schools' },
       // 'us-non-california-private': { 'color': 'orange', 'outline': 'black', 'source': 'schools' },
+      'ccpa_2023': { 'color': '#006000', 'outline': 'gold', 'source': 'people' }, // green
       'ccpa_2022': { 'color': '#006000', 'outline': 'gold', 'source': 'people' }, // green
       'ccpa_1900': { 'color': '#006000', 'outline': 'gold', 'source': 'people' }, // green
       'ccpa_staff': { 'color': 'gold', 'outline': '#006000', 'source': 'people' }, // green
@@ -572,6 +578,18 @@
                 ],
               });
               map.addLayer({
+                'id': 'ccpa_2023',
+                'type': 'symbol',
+                'source': 'people',
+                'layout': {
+                  'icon-image': 'ccpa',
+                  'icon-size': .1,
+                },
+                'filter': ['all',
+                  ['==', 'grad_year', '2023'],
+                ],
+              });
+              map.addLayer({
                 'id': 'ccpa_2022',
                 'type': 'symbol',
                 'source': 'people',
@@ -658,7 +676,7 @@
         let system_long = e.features[0].properties.system_long
         html = `<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a>
         <p><strong><a href='${website}' target='_blank'>${name}</a></strong> is a ${pubPriv.toLowerCase()} school located in ${location}. This campus part of the ${system_long} (${system_acronym}) system.`
-      } else if (layer == 'ccpa_2022' || layer == 'ccpa_1900') {
+      } else if (layer == 'ccpa_2022' || layer == 'ccpa_2023' || layer == 'ccpa_1900') {
         let school = e.features[0].properties.school_decision
         let year = e.features[0].properties.grad_year
         html = `<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a>

@@ -61,17 +61,17 @@
             </label>
             <h4 class='txt-bold pt12 '>CCPA Alumni:</h4>
             <label class='switch-container'>
-              <input type='checkbox' name='ccpa_2023' checked />
+              <input type='checkbox' name='ccpa_2023' />
               <div class='switch mr6'></div>
               2023
             </label>
             <label class='switch-container'>
-              <input type='checkbox' name='ccpa_2022' checked />
+              <input type='checkbox' name='ccpa_2022' />
               <div class='switch mr6'></div>
               2022
             </label>
             <label class='switch-container'>
-              <input type='checkbox' name='ccpa_staff' checked />
+              <input type='checkbox' name='ccpa_staff' />
               <div class='switch mr6'></div>
               CCPA Staff
             </label>
@@ -290,21 +290,41 @@
             map.setLayoutProperty('mexico', 'visibility', 'none');
             map.setLayoutProperty('us', 'visibility', 'none');
             map.setLayoutProperty(newLocation, 'visibility', 'visible');
+            // fit map to california
+            const bbox = [[-125.467429, 42.421704], [-111.758190, 31.887826]];
+            map.fitBounds(bbox, {
+              padding: { top: 10, bottom: 25, left: 50, right: 5 }
+            });
           } else if (newLocation === 'us') {
             map.setLayoutProperty('global', 'visibility', 'none');
             map.setLayoutProperty('canada', 'visibility', 'none');
             map.setLayoutProperty('mexico', 'visibility', 'none');
             map.setLayoutProperty(newLocation, 'visibility', 'visible');
+            // fit map to united states
+            const bbox = [[-134.883194, 47.272230], [-73.310976, 21.686577]];
+            map.fitBounds(bbox, {
+              padding: { top: 10, bottom: 25, left: 50, right: 5 }
+            });
           } else if (newLocation === 'north_america') {
             map.setLayoutProperty('global', 'visibility', 'none');
             map.setLayoutProperty('canada', 'visibility', 'visible');
             map.setLayoutProperty('mexico', 'visibility', 'visible');
             map.setLayoutProperty('us', 'visibility', 'visible');
+            // fit map to north_america
+            const bbox = [[-169.089758, 72.076309], [-56.576899, 13.783553]];
+            map.fitBounds(bbox, {
+              padding: { top: 10, bottom: 25, left: 50, right: 5 }
+            });
           } else if (newLocation === 'global') {
             map.setLayoutProperty('canada', 'visibility', 'visible');
             map.setLayoutProperty('mexico', 'visibility', 'visible');
             map.setLayoutProperty('us', 'visibility', 'visible');
             map.setLayoutProperty('global', 'visibility', 'visible');
+            // fit map to globe
+            const bbox = [[-162.080036, -55], [176.16456799665184, -51.862338726085824]];
+            map.fitBounds(bbox, {
+              padding: { top: 10, bottom: 25, left: 50, right: 5 }
+            });
           }
         } else {
           // if the event is a new transit selection...
@@ -616,6 +636,7 @@
                 'layout': {
                   'icon-image': 'ccpa',
                   'icon-size': .1,
+                  'visibility': 'none'
                 },
                 'filter': ['all',
                   ['==', 'grad_year', '2023'],
@@ -628,6 +649,7 @@
                 'layout': {
                   'icon-image': 'ccpa',
                   'icon-size': .1,
+                  'visibility': 'none'
                 },
                 'filter': ['all',
                   ['==', 'grad_year', '2022'],
@@ -640,6 +662,7 @@
                 'layout': {
                   'icon-image': 'ccpa',
                   'icon-size': .1,
+                  'visibility': 'none'
                 },
                 'filter': ['all',
                   ['==', 'grad_year', 'staff'],
@@ -707,7 +730,7 @@
         let system_acronym = e.features[0].properties.system_acronym
         let system_long = e.features[0].properties.system_long
         html = `<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a>
-        <p><strong><a href='${website}' target='_blank'>${name}</a></strong> is a ${pubPriv.toLowerCase()} school located in ${location}. This campus part of the ${system_long} (${system_acronym}) system.`
+        <p><strong><a href="${website}" target='_blank'>${name}</a></strong> is a ${pubPriv.toLowerCase()} school located in ${location}. This campus part of the ${system_long} (${system_acronym}) system.`
       } else if (layer == 'ccpa_2022' || layer == 'ccpa_2023') {
         let school = e.features[0].properties.school_decision
         let year = e.features[0].properties.grad_year
@@ -715,7 +738,7 @@
         <p><strong>CCPA Graduate:</strong><br>
         ${name} (<i>Class of ${year}</i>)</p>
         <p><strong>School choice:</strong><br>
-        <a href='${website}' target='_blank'>${school}</a></p>`
+        <a href="${website}" target='_blank'>${school}</a></p>`
       } else if (layer == 'ccpa_staff') {
         let school = e.features[0].properties.school_decision
         let degree = e.features[0].properties.degree
@@ -726,7 +749,7 @@
           <a href='${profile_url}' target='_blank'>${name}</a></strong><br>
           <em> CCPA ${ccpa_role}</em></p>
         <p><strong>School:</strong><br>
-          <a href='${website}' target='_blank'>${school}</a></p>
+          <a href="${website}" target='_blank'>${school}</a></p>
         <p><strong>Degree or Credential:</strong><br>
         ${degree}</p>`
       } else if (layer == 'hbcu') {
@@ -761,7 +784,7 @@
           comment_html = ''
         }
         html = `<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a>
-        <p><strong><a href='${website}' target='_blank'>${name}</a></strong> is a ${pubPriv.toLowerCase()} ${regionally_accredited} HBCU school.</p>
+        <p><strong><a href="${website}" target='_blank'>${name}</a></strong> is a ${pubPriv.toLowerCase()} ${regionally_accredited} HBCU school.</p>
         <p><strong>Founded:</strong> ${year_founded}</p>
         <p><strong>Location:</strong> ${location}</p>${ncaa_div_text}${comment_html}`
       } else if (layer == 'amtrak_stops') {
@@ -789,10 +812,10 @@
         let name = e.features[0].properties.Name
         let desc = e.features[0].properties.Description
         let website = "https://bart.gov/stations"
-        html = `<strong><a href='${website}' target='_blank'>${name} BART Station</a></strong><br>${desc}`
+        html = `<strong><a href="${website}" target='_blank'>${name} BART Station</a></strong><br>${desc}`
       } else {
         html = `<a href='${image}' target='_blank'><img src='${image}' class='popup-img' /></a><br/>
-        <p><strong><a href='${website}' target='_blank'>${name}</a></strong>`
+        <p><strong><a href="${website}" target='_blank'>${name}</a></strong>`
       }
       // popup, yay!
       new mapboxgl.Popup()

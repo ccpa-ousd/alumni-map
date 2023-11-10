@@ -2,6 +2,11 @@
 
 What colleges and universities have CCPA graduates chosen to attend? Use this interactive map to explore the college journeys of CCPA alumni.
 
+- See it live: https://ccpa-ousd.github.io/alumni-map
+
+![gif showing map search and alumni profile popup for SF State University](img/alumni-map-demo.gif)
+![gif showing regional dropdown and system toggle options](img/alumni-map-demo-2.gif)
+
 ## About CCPA
 
 Coliseum College Preparatory Academy (CCPA) is a small public secondary school in Oakland Unified School District (OUSD) serving grades 6-12 on the Havenscourt campus in East Oakland. Our unique 7-year program offers stability and supports students to meet the requirements for college admission. Our graduates go to UCs, CSUs, and private universities.

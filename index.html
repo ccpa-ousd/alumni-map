@@ -199,6 +199,11 @@
       zoom: 8,
       projection: 'mercator'
     });
+
+    map.on('load', function () {
+      map.resize();
+    });
+
     datasets = [
       { 'name': 'schools', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=1593214570&single=true&output=csv' },
       { 'name': 'people', 'url': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtFnRSJ__Rne8FH9igV93l42bsQE6PhFijwoQ4gimr5l5vlQJnljexLXOK4deup-0hLF0B-tDLA77u/pub?gid=435305116&single=true&output=csv' },
@@ -349,6 +354,10 @@
         minutes = event.target[event.target.selectedIndex].value;
         console.log('else - changed the duration')
       }
+      const bbox = [[-122.055930, 37.684425], [-122.352671, 37.815849]];
+      map.fitBounds(bbox, {
+        padding: { top: 10, bottom: 25, left: 50, right: 5 }
+      });
       getIso();
     });
     // isochrone end 
@@ -695,7 +704,7 @@
         'poi-label'
       );
       // marker.setLngLat(lngLat).addTo(map); // Add marker at CCPA
-      getIso(); // API call
+      // getIso(); // API call
     });
 
     // inspect a feature on click

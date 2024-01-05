@@ -8,6 +8,7 @@ nav {
   background-color: #0d5900;
   display: block;
   height: 3.5em;
+  white-space: nowrap;
 }
 nav span {
   font-size: 1.4em;

@@ -1,0 +1,68 @@
+body {
+  overflow-x: hidden;
+  /* Hide horizontal scrollbar */
+}
+
+nav {
+  color: white;
+  background-color: #0d5900;
+  display: block;
+  height: 3.5em;
+}
+nav span {
+  font-size: 1.4em;
+  height: 1.8em;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  margin: 0 0 0 0.4em;
+  padding: 0;
+}
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 2.5em;
+  z-index: 1;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  color: #000;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #007bff;
+}
+
+.sidebar .close-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 36px;
+  margin-left: 15px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+#content {
+  transition: margin-right 0.5s;
+  /* background-color: #0d5900; */
+}
+#hamburger {
+  position: relative;
+  top: -0.1em;
+  padding-right: 0.2em;
+  margin: 0;
+}

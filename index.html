@@ -16,83 +16,84 @@
   <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
   <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="nav-menu.css">
+  <link rel="stylesheet" href="nav.css">
 </head>
 
 <body>
-  <div id="header"><a href="https://github.com/ccpa-ousd/alumni-map"><strong>CCPA Alumni</strong>&nbsp;Map</a></div>
-  <div id="section1-wrapper" class='wrapper'>
-    <div class="container ">
-      <div class="col-xs-12 col-sm-12 col-md-12">
-        <!-- map options start -->
-        <div class='absolute fl my12 mx12 py12 px12 bg-gray-faint rounder border border--gray txt-s '>
-          <form id='options'>
-            <h4 class='txt-bold pb3'>School locations:</h4>
-            <div class='toggle-group align-center'>
-              <div class='select-container'>
-                <select class='select select--s'>
-                  <option name='location' value='california' selected>California</option>
-                  <option name='location' value='us'>United States</option>
-                  <option name='location' value='north_america'>North America</option>
-                  <option name='location' value='global'>Global</option>
-                </select>
-                <div class='select-arrow'></div>
+  <!-- nav sidebar begin -->
+  <div class="sidebar">
+    <div id="section1-wrapper" class='wrapper'>
+      <div class="container ">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <!-- map options start -->
+          <div class='absolute fl my12 mx12 py12 px12 bg-gray-faint rounder border border--gray txt-s right'>
+            <form id='options'>
+              <h4 class='txt-bold pb3'>School locations:</h4>
+              <div class='toggle-group align-center'>
+                <div class='select-container'>
+                  <select class='select select--s'>
+                    <option name='location' value='california' selected>California</option>
+                    <option name='location' value='us'>United States</option>
+                    <option name='location' value='north_america'>North America</option>
+                    <option name='location' value='global'>Global</option>
+                  </select>
+                  <div class='select-arrow'></div>
+                </div>
               </div>
-            </div>
-            <h4 class='txt-bold pt6'>School groups:</h4>
-            <label class='switch-container'>
-              <input type='checkbox' name='uc' checked />
-              <div class='switch mr6'></div>
-              UC (Public)
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' name='csu' checked />
-              <div class='switch mr6'></div>
-              CSU (Public)
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' name='ccc' checked />
-              <div class='switch mr6'></div>
-              CCC (Public)
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' name='hbcu' checked />
-              <div class='switch mr6'></div>
-              HBCU
-            </label>
-            <h4 class='txt-bold pt12 '>CCPA People:</h4>
-            <label class='switch-container'>
-              <input type='checkbox' name='ccpa_2023' checked />
-              <div class='switch mr6'></div>
-              Class of 2023
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' name='ccpa_2022' />
-              <div class='switch mr6'></div>
-              Class of 2022
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' name='ccpa_staff' checked />
-              <div class='switch mr6'></div>
-              CCPA Staff
-            </label>
-            <h4 class='txt-bold pt12 '>NCAA:</h4>
-            <div class='toggle-group mr18'>
-              <label class='toggle-container'>
-                <input name='ncaa_d1' type='checkbox' />
-                <div class='toggle'>D1</div>
+              <h4 class='txt-bold pt6'>School groups:</h4>
+              <label class='switch-container'>
+                <input type='checkbox' name='uc' checked />
+                <div class='switch mr6'></div>
+                UC (Public)
               </label>
-              <label class='toggle-container'>
-                <input name='ncaa_d2' type='checkbox' />
-                <div class='toggle'>D2</div>
+              <label class='switch-container'>
+                <input type='checkbox' name='csu' checked />
+                <div class='switch mr6'></div>
+                CSU (Public)
               </label>
-              <label class='toggle-container'>
-                <input name='ncaa_d3' type='checkbox' />
-                <div class='toggle'>D3</div>
+              <label class='switch-container'>
+                <input type='checkbox' name='ccc' checked />
+                <div class='switch mr6'></div>
+                CCC (Public)
               </label>
-            </div>
+              <label class='switch-container'>
+                <input type='checkbox' name='hbcu' checked />
+                <div class='switch mr6'></div>
+                HBCU
+              </label>
+              <h4 class='txt-bold pt12 '>CCPA People:</h4>
+              <label class='switch-container'>
+                <input type='checkbox' name='ccpa_2023' checked />
+                <div class='switch mr6'></div>
+                Class of 2023
+              </label>
+              <label class='switch-container'>
+                <input type='checkbox' name='ccpa_2022' />
+                <div class='switch mr6'></div>
+                Class of 2022
+              </label>
+              <label class='switch-container'>
+                <input type='checkbox' name='ccpa_staff' checked />
+                <div class='switch mr6'></div>
+                CCPA Staff
+              </label>
+              <h4 class='txt-bold pt12 '>NCAA:</h4>
+              <div class='toggle-group mr18'>
+                <label class='toggle-container'>
+                  <input name='ncaa_d1' type='checkbox' />
+                  <div class='toggle'>D1</div>
+                </label>
+                <label class='toggle-container'>
+                  <input name='ncaa_d2' type='checkbox' />
+                  <div class='toggle'>D2</div>
+                </label>
+                <label class='toggle-container'>
+                  <input name='ncaa_d3' type='checkbox' />
+                  <div class='toggle'>D3</div>
+                </label>
+              </div>
 
-            <!-- <form id='transit'>
+              <!-- <form id='transit'>
               <h4 class='txt-s txt-bold pt12 pb3 '>Transit:</h4>
               <div class='toggle-group align-center'>
                 <div class='select-container'>
@@ -134,64 +135,90 @@
                 </div>
               </div>
             </form> -->
-            <h4 class='txt-s txt-bold pt12 pb3 '>Rail transit:</h4>
-            <label class='switch-container'>
-              <input type='checkbox' name='bart_stops' checked />
-              <div class='switch mr6'></div>
-              BART
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' name='caltrain_routes' checked />
-              <div class='switch mr6'></div>
-              Caltrain routes
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' name='amtrak_routes' checked />
-              <div class='switch mr6'></div>
-              Amtrak routes
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' name='caltrain_stops' />
-              <div class='switch mr6'></div>
-              Caltrain stations
-            </label>
-            <label class='switch-container'>
-              <input type='checkbox' name='amtrak_stops' />
-              <div class='switch mr6'></div>
-              Amtrak stations
-            </label>
-          </form>
+              <h4 class='txt-s txt-bold pt12 pb3 '>Rail transit:</h4>
+              <label class='switch-container'>
+                <input type='checkbox' name='bart_stops' checked />
+                <div class='switch mr6'></div>
+                BART
+              </label>
+              <label class='switch-container'>
+                <input type='checkbox' name='caltrain_routes' checked />
+                <div class='switch mr6'></div>
+                Caltrain routes
+              </label>
+              <label class='switch-container'>
+                <input type='checkbox' name='amtrak_routes' checked />
+                <div class='switch mr6'></div>
+                Amtrak routes
+              </label>
+              <label class='switch-container'>
+                <input type='checkbox' name='caltrain_stops' />
+                <div class='switch mr6'></div>
+                Caltrain stations
+              </label>
+              <label class='switch-container'>
+                <input type='checkbox' name='amtrak_stops' />
+                <div class='switch mr6'></div>
+                Amtrak stations
+              </label>
+            </form>
 
-          <form id='params'>
-            <h4 class='txt-s txt-bold pt12 pb3 '>Travel time:</h4>
-            <div class='toggle-group align-center'>
-              <div class='select-container'>
-                <select class='select select--s'>
-                  <option name='profile' value='walking' selected>Walk</option>
-                  <option name='profile' value='cycling'>Bike</option>
-                  <option name='profile' value='driving'>Drive</option>
-                </select>
-                <div class='select-arrow'></div>
+            <form id='params'>
+              <h4 class='txt-s txt-bold pt12 pb3 '>Travel time:</h4>
+              <div class='toggle-group align-center'>
+                <div class='select-container'>
+                  <select class='select select--s'>
+                    <option name='profile' value='walking' selected>Walk</option>
+                    <option name='profile' value='cycling'>Bike</option>
+                    <option name='profile' value='driving'>Drive</option>
+                  </select>
+                  <div class='select-arrow'></div>
+                </div>
+                <div class='select-container'>
+                  <select class='select select--s'>
+                    <option name='duration' value='30' selected>30 min</option>
+                    <option name='duration' value='45'>45 min</option>
+                    <option name='duration' value='60'>60 min</option>
+                  </select>
+                  <div class='select-arrow'></div>
+                </div>
               </div>
-              <div class='select-container'>
-                <select class='select select--s'>
-                  <option name='duration' value='30' selected>30 min</option>
-                  <option name='duration' value='45'>45 min</option>
-                  <option name='duration' value='60'>60 min</option>
-                </select>
-                <div class='select-arrow'></div>
-              </div>
-            </div>
-          </form>
+            </form>
+          </div>
+          <!-- map options end -->
         </div>
-        <!-- map options end -->
       </div>
     </div>
+    <!-- nav sidebar end -->
   </div>
 
-  <div id="map"></div>
+  <div id="content">
+    <nav class="navbar navbar-light bg-light">
+      <span class="navbar-brand mb-0 h1" onclick="toggleNav()">
+        <span id="hamburger">&#9776;</span></a><strong>CCPA Alumni</strong>&nbsp;Map
+      </span>
+
+    </nav>
+    <div id="map"></div>
+  </div>
+
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <script>
+    function toggleNav() {
+      var sidebar = document.querySelector('.sidebar');
+      var content = document.getElementById('content');
+
+      if (sidebar.style.width === '0px' || sidebar.style.width === '') {
+        sidebar.style.width = '250px';
+        content.style.marginRight = '250px';
+      } else {
+        sidebar.style.width = '0';
+        content.style.marginRight = '0';
+      }
+    }
     mapboxgl.accessToken = 'pk.eyJ1IjoiZG9tbGV0IiwiYSI6ImNsaTN5MXhseTA0bWMzZHBoNTlnaG1hYmUifQ.9IpTpyptAxhC6ZoUqKCd9w';
     const map = new mapboxgl.Map({
       container: 'map',
@@ -430,9 +457,11 @@
                 new MapboxGeocoder({
                   accessToken: mapboxgl.accessToken,
                   localGeocoder: forwardGeocoder,
-                  mapboxgl: mapboxgl
-                })
+                  mapboxgl: mapboxgl,
+                  collapsed: true
+                }), 'top-left'
               );
+
 
               map.addLayer({
                 'id': 'ccc',

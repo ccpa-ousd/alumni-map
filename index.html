@@ -458,7 +458,9 @@
                   accessToken: mapboxgl.accessToken,
                   localGeocoder: forwardGeocoder,
                   mapboxgl: mapboxgl,
-                  collapsed: true
+                  collapsed: true,
+                  proximity: { latitude: 37.783520, longitude: -122.219355 },
+                  clearAndBlurOnEsc: true
                 }), 'top-left'
               );
               map.addControl(

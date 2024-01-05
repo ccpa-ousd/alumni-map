@@ -27,7 +27,7 @@ nav span {
   height: 100%;
   width: 0;
   position: absolute;
-  top: 0;
+  top: 3.8em;
   right: 0;
   overflow-x: hidden;
   transition: 0.5s;

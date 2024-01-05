@@ -1,5 +1,23 @@
 body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0; width: 100%;}
+#map { position: absolute; top: 3.5em; bottom: 0; width: 100%;}
+
+#header {
+  color: white;
+  background-color: #0D5900;
+  display: block;
+  height: 3.5em;
+} 
+#header a {
+  font-size: 1.4em;
+  height: 1.8em;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  margin: 0 0 0 0.4em; padding: 0;
+}
 
 #menu {
   background: rgb(90, 90, 90, 0.5)

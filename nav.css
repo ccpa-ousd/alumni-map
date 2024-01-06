@@ -67,3 +67,10 @@ nav span {
   padding-right: 0.2em;
   margin: 0;
 }
+
+#reset {
+  position: absolute;
+  right: 0.25em;
+  font-size: 140%;
+  top: 0.15em;
+}

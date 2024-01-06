@@ -10,6 +10,7 @@ body {
   bottom: 0;
   width: 100%;
   z-index: 0;
+  height: 100vh;
 }
 
 .container {

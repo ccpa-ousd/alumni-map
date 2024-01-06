@@ -70,6 +70,7 @@ nav span {
 
 #reset {
   position: absolute;
+  display: block;
   right: 0.25em;
   font-size: 140%;
   top: 0.15em;

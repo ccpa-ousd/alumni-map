@@ -38,13 +38,19 @@ For people and school map markers, you can edit the data in Google Sheets to mod
 
 ## Data sources
 
-### Alumni
+### Alumni 🦁
 
 Alumni data comes from student slides submitted for Decision Day at CCPA.
 
-### Staff
+### Staff 🦁
 
 CCPA Staff data is gathered by students in 1:1 meetings or submitted by staff themselves – or scraped from the Internet and posted with permission.
+
+### Programs 💰
+
+Data for programs is primarily sourced from the [CCPA College and Career Website](https://sites.google.com/ousd.org/ccpacollegeandcareer/home).
+
+All student programs (whether paid or pay-for) are represented by money bag emoji to encourage students and families to reach beyond their comfort zones for new experiences and knowledge. Our rationale for this is that students who participate in programs outside of school increase their eligibility for scholarships and financial aid because such programs support their independence and the exploration of their interests.
 
 ### Transit layers
 

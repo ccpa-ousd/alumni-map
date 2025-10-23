@@ -130,16 +130,16 @@ map.on("load", () => {
                   matchingFeatures.push(feature);
                 }
               }
-              for (const feature of schools) {
+              for (const feature of programs) {
                 if (feature.properties.name.toLowerCase().includes(query.toLowerCase())) {
-                  feature["place_name"] = `📚 ${feature.properties.name}`;
+                  feature["place_name"] = `💰 ${feature.properties.name}`;
                   feature["center"] = feature.geometry.coordinates;
                   matchingFeatures.push(feature);
                 }
               }
-              for (const feature of programs) {
+              for (const feature of schools) {
                 if (feature.properties.name.toLowerCase().includes(query.toLowerCase())) {
-                  feature["place_name"] = `💰 ${feature.properties.name}`;
+                  feature["place_name"] = `📚 ${feature.properties.name}`;
                   feature["center"] = feature.geometry.coordinates;
                   matchingFeatures.push(feature);
                 }
